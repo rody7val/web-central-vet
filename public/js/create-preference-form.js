@@ -12,7 +12,7 @@ const createPreference = (event) => {
     items: [item]
   }
 
-  fetch("http://localhost:8000/api/create/preference", {
+  fetch("https://web-central-vet.herokuapp.com/api/create/preference", {
     method: 'POST',
     body: JSON.stringify(data),
     headers:{
