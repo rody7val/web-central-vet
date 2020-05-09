@@ -1,6 +1,6 @@
 // get items - GET
 const getItems = () => {
-fetch('https://web-central-vet.herokuapp.com/api/items')
+fetch('/api/items')
   .then(res => {
     return res.json()
   })
@@ -26,7 +26,7 @@ const addItem = (event) => {
     qty: Number(event.target.qty.value)
   }
 
-  fetch('https://web-central-vet.herokuapp.com/api/items', {
+  fetch('/api/items', {
     method: 'POST',
     body: JSON.stringify({ item: item }),
     headers:{

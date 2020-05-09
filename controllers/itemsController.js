@@ -17,7 +17,7 @@ exports.add = (req, res) => {
 
   let preference = { items: [{
       title: req.body.item.title,
-      quantity: req.body.item.qty,
+      quantity: 1,
       currency_id: 'ARS',
       unit_price: req.body.item.price
     }]
@@ -32,7 +32,6 @@ exports.add = (req, res) => {
       if (err) {
         return res.json({success: false, err: err})
       }
-      console.log(req.body.item)
       res.json({success: true})
     })
   }).catch(error => {
