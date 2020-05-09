@@ -1,3 +1,3 @@
-exports.run = function (req, res) {
+exports.run = (req, res) => {
   res.render('create/preference/form')
 }

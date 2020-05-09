@@ -1,11 +1,17 @@
 // Controllers
-const mpController = require('../controllers/mpController')
+const mp = require('../controllers/mpController')
+const items = require('../controllers/itemsController')
 
-module.exports = function (express) {
+module.exports = express => {
   // Router Engines
   const router = express.Router()
 
-  router.post('/create/preference', mpController.create)
+  // mp
+  router.post('/create/preference', mp.create)
+
+  // items
+  router.get('/items', items.all)
+  router.post('/items', items.add)
 
   return router
 }

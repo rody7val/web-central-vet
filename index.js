@@ -1,5 +1,6 @@
 const config = require('./config')
 const express = require('express')
+const mongoose = require('mongoose');
 const fs = require('fs')
 const bodyParser = require('body-parser')
 const mercadopago = require('mercadopago')
@@ -7,19 +8,25 @@ const mercadopago = require('mercadopago')
 // Create Express Application
 const app = express()
 const api = require('./routes/api')(express);
+const web = require('./routes/web')(express);
+
+// Data Base Conection
+mongoose.connect(config.database, {useNewUrlParser: true, useUnifiedTopology: true});
 
 // Add Body Parser Middleware
 app.use(bodyParser.urlencoded({extended: true}))
 app.use(bodyParser.json())
 
-// directorio píblico
+// Public Directory
 app.use(express.static(__dirname + '/public'));
 
 // Set Jade as View Engine
 app.set('view engine', 'jade')
 
-// API 
+// API REST
 app.use('/api', api);
+// Web Routes
+app.use('/', web);
 
 // Iniialize mercadopago SDK
 mercadopago.configure({
@@ -43,6 +50,6 @@ app.get(/\/(.+)/, function (req, res) {
 })
 
 // Start Express Application
-app.listen(process.env.PORT || config.port, "0.0.0.0", () => {
+app.listen(config.port, "0.0.0.0", () => {
   console.log('Servidor funcionando!');
 })
