@@ -1,20 +1,22 @@
+window.load = false
+
 // get items - GET
 const getItems = () => {
-document.getElementById('items').innerHTML = 'cargando...'
-
-fetch('/api/items')
-  .then(res => {
-    return res.json()
-  })
-  .then(res => {
-    if (res.success) {
-      return renderItems(res.data, 'items')
-    }
-    document.getElementById('items').innerHTML = 'Sin resultados'
-  })
-  .catch(err => {
-    console.log(err)
-  })
+  document.getElementById('items').innerHTML = 'cargando...'
+  fetch('/api/items')
+    .then(res => {
+      return res.json()
+    })
+    .then(res => {
+    	console.log(res.data)
+      if (res.success && res.data.length) {
+        return renderItems(res.data, 'items')
+      }
+      document.getElementById('items').innerHTML = 'Sin resultados'
+    })
+    .catch(err => {
+      console.log(err)
+    })
 }
 
 // add item - POST
