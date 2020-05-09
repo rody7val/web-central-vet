@@ -10,6 +10,8 @@ section#menu img#logo{
 }
 .img-list{
   max-height: 150px
+  -o-object-fit: cover;
+  object-fit: cover;
 }
 .img-center{
   margin: 0 auto;
@@ -18,6 +20,12 @@ section#menu img#logo{
 .title-list{
 	margin-top: 15px;
 	margin-bottom: 10px;
+}
+.btn-delete{
+  cursor: pointer;
+  position: absolute;
+  top: 2px;
+  right: 2px;
 }
 @media (max-width: 575.98px) {
   .container {
