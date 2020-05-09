@@ -3,6 +3,7 @@ const Float = require('mongoose-float').loadType(mongoose, 2)
 const Schema = mongoose.Schema
 
 const ItemSchema = new Schema({
+  img: String,
   title: String,
   desc: String,
   price: Float,
