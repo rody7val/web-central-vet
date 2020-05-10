@@ -1,5 +1,4 @@
 // Controllers
-const mp = require('../controllers/mpController')
 const items = require('../controllers/itemsController')
 
 module.exports = express => {

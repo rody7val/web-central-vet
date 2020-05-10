@@ -15,7 +15,12 @@ section#menu img#logo{
   display: block;
 }
 .img-list{
-  max-height: 200px
+  max-height: 180px;
+  -o-object-fit: cover;
+  object-fit: cover;
+}
+.img-view{
+  max-height: 100%;
   -o-object-fit: cover;
   object-fit: cover;
 }
@@ -26,6 +31,19 @@ section#menu img#logo{
   font-size: 20px;
 	margin-top: 15px;
 	margin-bottom: 10px;
+}
+.price-view{
+  font-size: 44px;
+}
+.title-view{ 
+  font-size: 26px;
+}
+#items a {
+  text-decoration: none;
+  color: inherit;
+}
+#items a.btn {
+  color: #fff;
 }
 .btn-delete{
   cursor: pointer;
@@ -38,19 +56,29 @@ section#menu img#logo{
 }
 
 @media (max-width: 575.98px) {
-  .container {
+  .container, .container-fluid {
     width: 100%;
     margin: 0;
     padding: 0;
-  }	
+  }
+  .card{
+    border: 0px;
+  }
+  .img-view{
+    max-height: 200px;
+  }
   .img-list{
     height: 150px;
+    padding-right: 10px!important;
   }
   .title-list{
     font-size: 14px;
   }
   .price-list{
     font-size: 20px;
+  }
+  .price-view{
+    font-size: 32px;
   }
   .mp0{
     margin: 0;

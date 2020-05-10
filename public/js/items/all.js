@@ -1,3 +1,4 @@
+// Dynamic Managed API
 // get items - GET
 const getItems = () => {
   document.getElementById('items').innerHTML = 'cargando...'
@@ -92,15 +93,18 @@ const renderItems = (data, id) => {
   let html = data.map((item, index) => {
     return(`
       <li class="list-group-item shadow mp0">
-        <div class="container-fluid">
-          <div class="row">
+        <div class="container">
+          <div class="row mp0">
             <div class="col-4 col-md-3 mp0">
-              <img class="img-fluid img-center img-list" src="${item.img}"/>
+              <a href="/items/${item._id}">
+                <img class="img-fluid img-center img-list" src="${item.img}"/>
+              </a>
             </div>
-            <div class="col-8 col-md-9">
-              <p class="title-list">${item.title}</p>
+            <div class="col-8 col-md-9 mp0">
+              <a href="/items/${item._id}">
+                <p class="title-list">${item.title}</p>
+              </a>
               <h3 class="price-list">$ ${item.price}</h3>
-              <a class="btn btn-primary btn-sm" href="${item.init_point}">Pagar</a>
               <span class="badge badge-danger badge-pill btn-delete" onclick="deleteItem('${item.title}', '${item._id}')">&times;</span>
             </div>
           </div>

@@ -26,29 +26,13 @@ exports.all = (req, res) => {
 }
 
 exports.add = (req, res) => {
-  let preference = { items: [{
-      title: req.body.item.title,
-      quantity: 1,
-      currency_id: 'ARS',
-      unit_price: req.body.item.price
-    }]
-  }
-  mp.preferences.create(preference).then(data => {
-    let itemRequest = req.body.item
-    itemRequest.init_point = data.body.init_point
-    let item = new Item(itemRequest)
+  let item = new Item(req.body.item)
 
-    item.save(err => {
-      if (err) {
-        return res.json({success: false, err: err})
-      }
-      res.json({success: true})
-    })
-  }).catch(error => {
-    res.json({
-      success: false,
-      error: error
-    })
+  item.save(err => {
+    if (err) {
+      return res.json({success: false, err: err})
+    }
+    res.json({success: true})
   })
 }
 

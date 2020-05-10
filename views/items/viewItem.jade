@@ -1,0 +1,19 @@
+extends ../layout.jade
+
+block content
+  script.
+    window.$item = !{JSON.stringify(item).replace(/<\//g, "<\\/")}
+  section#main.container
+    .card
+      .row.mp0
+        .col-sm-6.mp0
+          img.img-center.img-view.card-img-top(src=`${item.img}`)
+        .col-sm-6.mp0
+          div.card-body
+            h5.card-title.title-view !{item.title}
+            p.lead.price-view $ !{item.price}
+            button.btn.btn-primary.btn-sm.mr-2 Comparar ahora
+            button.btn.btn-outline-warning.btn-sm Agregar al carrito
+            hr
+            p !{item.desc}
+  script(src="/js/items/one.js")

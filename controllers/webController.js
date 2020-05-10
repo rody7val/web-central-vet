@@ -5,3 +5,9 @@ exports.home = (req, res) => {
 exports.items = (req, res) => {
   res.render('items')
 }
+
+exports.viewItem = (req, res) => {
+  res.render('items/viewItem', {
+  	item: req.item
+  })
+}
