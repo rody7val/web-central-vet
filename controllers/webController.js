@@ -8,6 +8,11 @@ exports.items = (req, res) => {
 
 exports.viewItem = (req, res) => {
   res.render('items/viewItem', {
-  	item: req.item
+    item: req.item
   })
+}
+
+exports.checkoutItem = (req, res) => {
+  console.log(req.init_point)
+  res.redirect(req.init_point)
 }
