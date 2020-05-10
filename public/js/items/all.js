@@ -102,7 +102,7 @@ const renderItems = (data, id) => {
             </div>
             <div class="col-8 col-md-9 mp0">
               <a href="/items/${item._id}">
-                <p class="title-list">${item.titsle}</p>
+                <p class="title-list">${item.title}</p>
               </a>
               <h3 class="price-list">$ ${item.price}</h3>
               <span class="badge badge-danger badge-pill btn-delete" onclick="deleteItem('${item.title}', '${item._id}')">&times;</span>
