@@ -7,14 +7,14 @@ const checkout = (event, item) => {
       {
       	id: item._id,
         title: item.title,
-        unit_price: item.price,
+        unit_price: Number(item.price),
         currency_id: 'ARS',
-        quantity: event.target.qty.value,
+        quantity: Number(event.target.qty.value),
       }
     ]
   }
 
-  fetch('/checkout', {
+  fetch('/api/checkout', {
     method: 'POST',
     body: JSON.stringify(preference),
     headers:{
@@ -25,13 +25,11 @@ const checkout = (event, item) => {
     return res.json()
   })
   .then(res => {
-    if (!res.success) {
-    	return console.log(res)
+    if (res.success) {   	
+    	window.location.replace(res.init_point);
     }
-    alert("not redirect")
   })
   .catch(err => {
     alert("err", err)
   })
-
 }

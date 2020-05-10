@@ -1,14 +1,16 @@
 extends ../layout.jade
 
 block content
+	//- dinamic vars
   script.
     window.$item = !{JSON.stringify(item).replace(/<\//g, "<\\/")}
+  //- contents
   section#main.container
-    .card
+    .card.shadow
       .row.mp0
-        .col-sm-6.mp0
+        .col-md-6.mp0
           img.img-center.img-view.card-img-top(src=`${item.img}`)
-        .col-sm-6.mp0
+        .col-md-6.mp0
           div.card-body
             h5.card-title.title-view !{item.title}
             p.lead.price-view $ !{item.price}
@@ -23,11 +25,10 @@ block content
                     min="1"
                     value="1"
                     max=`${item.qty}`)
-                  .input-group-append
-                    sapn.input-group-text (!{item.qty} disponibles)
-              button.btn.btn-primary.btn-sm.btn-block.mr-2(
+                small.text-muted.text-right(style="display: inherit") !{item.qty} disponibles
+              button#checkoutBtn.btn.btn-primary.btn-sm.mr-2(
               type="submit") Comparar ahora
-            button.btn.btn-outline-warning.btn-sm.btn-block.mt-2 Agregar al carrito
+            button#addToCart.btn.btn-outline-warning.btn-sm.mt-2 Agregar al carrito
             hr
             p.lead Descripción:
             p !{item.desc}

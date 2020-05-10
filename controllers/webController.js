@@ -11,8 +11,3 @@ exports.viewItem = (req, res) => {
     item: req.item
   })
 }
-
-exports.checkoutItem = (req, res) => {
-  console.log(req.init_point)
-  res.redirect(req.init_point)
-}
