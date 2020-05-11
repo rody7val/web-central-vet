@@ -16,19 +16,27 @@ block content
             p.lead.price-view $ !{item.price}
             form(onsubmit=`checkout(event, window.$item)`)
               .form-group
-                .input-group#count
+                .input-group
                   .input-group-prepend
                     sapn.input-group-text Cantidad: 
-                  input#count.form-control(
+                  input.form-control(onchange=`qtyChange(event)`
                     type="number"
                     name="qty"
                     min="1"
                     value="1"
                     max=`${item.qty}`)
-                small.text-muted.text-right(style="display: inherit") !{item.qty} disponibles
-              button#checkoutBtn.btn.btn-primary.btn-sm.mr-2(
-              type="submit") Comparar ahora
-            button#addToCart.btn.btn-outline-warning.btn-sm.mt-2 Agregar al carrito
+                small.text-muted.text-right(style="display: inherit") (!{item.qty} disponibles)
+              input#checkoutBtn.btn.btn-primary.btn-sm.mr-2(
+                type="submit"
+                value="Comprar ahora")
+            form(onsubmit=`addToCart(event, window.$item)`)
+              input#cart_qty.form-control(style="display: none;"
+                type="number"
+                name="cart_qty"
+                value="1"
+                max=`${item.qty}`)
+              button#addToCartBtn.btn.btn-outline-warning.btn-sm.mt-2(
+                type="submit") Agregar al carrito
             hr
             p.lead Descripción:
             p !{item.desc}

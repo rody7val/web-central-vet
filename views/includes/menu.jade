@@ -1,13 +1,28 @@
 section#menu
-  nav(class="navbar navbar-expand-sm navbar-dark shadow")
+  nav.navbar.navbar-expand-sm.navbar-dark.shadow
     .container
-      a(class="navbar-brand",href="/")
-        img(src="/img/logo-central-vet.jpg", width="50",height="50",alt="logo", id="logo")
-
-      button(class="navbar-toggler",type="button",data-toggle="collapse",data-target="#navbarNav",aria-controls="navbarNav",aria-expanded="false",aria-label="Toggle navigation")
+      a.navbar-brand(href="/")
+        img#logo(
+          src="/img/logo-central-vet.jpg"
+          width="50"
+          height="50"
+          alt="logo")
+      div#navbarNav.collapse.navbar-collapse
+        ul.navbar-nav
+          li.nav-item
+            a.nav-link(href="/items") Productos
+      .form-inline
+        button.btn.btn-outline-warning.btn-sm(data-toggle="modal" data-target="#cart")
+          b Carro &nbsp;
+          span#cart_count.badge.badge-pill.badge-warning
+        include ../cart/index.jade
+        script(src="/js/cart/cart.js")
+        script(src="/js/cart/events.js")  
+      button.navbar-toggler(
+        type="button"
+        data-toggle="collapse"
+        data-target="#navbarNav"
+        aria-controls="navbarNav"
+        aria-expanded="false"
+        aria-label="Toggle navigation")
         span(class="navbar-toggler-icon")
-
-      div(class="collapse navbar-collapse",id="navbarNav")
-        ul(class="navbar-nav")
-          li(class="nav-item")
-            a(class="nav-link",href="/items") Productos

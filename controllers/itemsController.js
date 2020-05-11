@@ -3,14 +3,14 @@ const mp = require('mercadopago')
 
 // Autoload - factoriza el código si la ruta incluye :itemId
 exports.load = (req, res, next, itemId) => {
-	Item.findOne({ _id: itemId })
-	.exec((err, item) => {
-		if (item){
-			req.item = item
-			return next()
-		}
-		next(new Error('No existe itemId = '+ itemId))
-	})
+  Item.findOne({ _id: itemId })
+  .exec((err, item) => {
+    if (item){
+      req.item = item
+      return next()
+    }
+    next(new Error('No existe itemId = '+ itemId))
+  })
 }
 
 exports.all = (req, res) => {
@@ -37,12 +37,12 @@ exports.add = (req, res) => {
 }
 
 exports.delete = (req, res, next) => {
-	Item.findOne({
-		_id: req.item._id
-	}).remove().exec(err => {
-		if (err) {
-			return res.json({success: false, err: err})
-		}
-		res.json({success: true})
-	})
+  Item.findOne({
+    _id: req.item._id
+  }).remove().exec(err => {
+    if (err) {
+      return res.json({success: false, err: err})
+    }
+    res.json({success: true})
+  })
 }

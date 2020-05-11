@@ -1,0 +1,19 @@
+div#cart.modal.fade(aria-hidden="true")
+  div.modal-dialog.modal-lg
+    div.modal-content
+      div.modal-header
+        h4.modal-title Carro &nbsp;
+          button#cart_clear.btn.btn-danger.btn-sm(onclick=`deleteCart()`) Vaciar Carro
+        button.close(
+          type="button"
+          data-dismiss="modal"
+          aria-label="Close")
+          span(aria-hidden="true") &times;
+      div.modal-body
+        #cart_items Vacío...
+        h3.text-right Total: &nbsp;
+          b $
+            span#cart_total
+      class.modal-footer
+        button.btn.btn-secondary(data-dismiss="modal") Cerrar
+        button.btn.btn-primary Comprar ahora      

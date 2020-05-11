@@ -7,7 +7,7 @@ section#menu img#logo{
 #checkoutBtn{
   display: inline-block;
 }
-#addToCart{
+#addToCartBtn{
   display: inline-block;
 }
 #menu .navbar {
@@ -89,7 +89,7 @@ section#menu img#logo{
     margin: 0;
     padding: 0;
   }
-  #checkoutBtn,#addToCart{
+  #checkoutBtn,#addToCartBtn{
     display: block;
     width: 100%
   }
