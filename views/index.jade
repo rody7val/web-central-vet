@@ -2,5 +2,9 @@
 extends ./layout.jade
 
 block content
+  section#breadcrumb.container
+    nav(aria-label="breadcrumb")
+      ol(class="breadcrumb")
+        li.breadcrumb-item.active(aria-current="page") Inicio
   section#main.container
     p homepage

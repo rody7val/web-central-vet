@@ -43,7 +43,10 @@ var shoppingCart = (function() {
         var countBuffer = cart[item].count + count
         if (countBuffer <= max) {
           cart[item].count = countBuffer;
-        };
+          renderAlert("info", `Agregado al carro <span class="badge badge-pill badge-info">${countBuffer}</span> <b>${name}</b>`)
+        }else{
+          renderAlert("danger", `Sólo hay <span class="badge badge-pill badge-danger">${max}</span> <b>${name}</b> disponibles...`)
+        }
         saveCart();
         return;
       }
@@ -51,6 +54,7 @@ var shoppingCart = (function() {
     var item = new Item(name, price, count, max);
     cart.push(item);
     saveCart();
+    renderAlert("info", `Agregado al carro <span class="badge badge-pill badge-info">${count}</span> <b>${name}</b>`)
   }
   // Set count from item
   obj.setCountForItem = function(name, count) {
@@ -125,7 +129,9 @@ var shoppingCart = (function() {
         itemCopy[p] = item[p];
 
       }
-      itemCopy.total = Number(item.price * item.count).toFixed(2);
+      itemCopy.total = Number(
+        Number(item.price * item.count).toFixed(2)
+      );
       cartCopy.push(itemCopy)
     }
     return cartCopy;

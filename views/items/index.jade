@@ -2,13 +2,16 @@
 extends ../layout.jade
 
 block content
+  section#breadcrumb.container
+    nav(aria-label="breadcrumb")
+      ol(class="breadcrumb")
+        li.breadcrumb-item
+          a(href="/") Inicio
+        li.breadcrumb-item.active(aria-current="page") Productos
   section#main.container
     h2 Productos &nbsp;
       small
         button(class="btn btn-secondary btn-sm",data-toggle="modal",data-target="#addItem") Agregar
     include ./createItem.jade
     ul#items.list-group cargando...
-  script(src="https://www.gstatic.com/firebasejs/7.14.3/firebase-app.js")
-  script(src="https://www.gstatic.com/firebasejs/7.14.3/firebase-storage.js")
-  script(src="/js/items/init-firebase.js")
   script(src="/js/items/all.js")

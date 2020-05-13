@@ -4,6 +4,9 @@ body {
 section#menu img#logo{
   border-radius: 50%
 }
+.alert,.breadcrumb{
+  margin-bottom: 0;
+}
 #checkoutBtn{
   display: inline-block;
 }
@@ -21,7 +24,7 @@ section#menu img#logo{
   display: block;
 }
 .img-list{
-  max-height: 180px;
+  max-height: 150px;
   -o-object-fit: cover;
   object-fit: cover;
 }
@@ -61,6 +64,9 @@ section#menu img#logo{
   box-shadow: 0 8px 16px 0 rgba(0,0,0,.1);
 }
 @media (max-width: 575.98px) {
+  #breadcrumb{
+    display: none;
+  }
   .container, .container-fluid {
     width: 100%;
     margin: 0;

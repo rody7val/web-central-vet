@@ -4,6 +4,15 @@ block content
   //- dinamic vars
   script.
     window.$item = !{JSON.stringify(item).replace(/<\//g, "<\\/")}
+  //- breadcrumbs
+  section#breadcrumb.container
+    nav(aria-label="breadcrumb")
+      ol(class="breadcrumb")
+        li.breadcrumb-item
+          a(href="/") Inicio
+        li.breadcrumb-item
+          a(href="/items") Productos
+        li.breadcrumb-item.active(aria-current="page") !{item.title}
   //- contents
   section#main.container
     .card.shadow
@@ -37,6 +46,7 @@ block content
                 max=`${item.qty}`)
               button#addToCartBtn.btn.btn-outline-warning.btn-sm.mt-2(
                 type="submit") Agregar al carrito
+            img(src="/img/MP-payButton-logos.png")
             hr
             p.lead Descripción:
             p !{item.desc}

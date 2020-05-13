@@ -1,23 +1,128 @@
-/*
-// *****************************************
-// Triggers / Events
-// ***************************************** 
-// Add item
-$('.add-to-cart').click(function(event) {
-  event.preventDefault();
-  var name = $(this).data('name');
-  var price = Number($(this).data('price'));
-  shoppingCart.addItemToCart(name, price, 1);
-  displayCart();
-});
+// copy qty
+const qtyChange = (event) => {
+  event.preventDefault()
+  document.getElementById('cart_qty').value = event.target.value
+}
 
-// Clear items
-$('.clear-cart').click(function() {
-  shoppingCart.clearCart();
-  displayCart();
-});
-*/
+//add item
+const addToCart = (event, item) => {
+  event.preventDefault()
+  shoppingCart.addItemToCart(item.title, Number(item.price), Number(event.target.cart_qty.value), item.qty)
+  renderCart()
+}
 
+// delete cart
+const deleteCart = () => {
+  if (confirm("Borrar todos los productos del carro?")) {
+    shoppingCart.clearCart()
+    renderCart()
+    document.getElementById("cart_items").innerHTML = "Vacío..."
+  }
+}
+
+// checkout cart
+const checkoutCart = (event) => {
+  event.preventDefault()
+  event.preventDefault()
+  // disabled button submit
+  document.getElementById("checkoutCartBtn").setAttribute("disabled", true)
+  document.getElementById("checkoutCartBtn").value = "cargando..."
+
+  let preference = {}
+  preference.items = shoppingCart.listCart().map((item, index) => {
+    return {
+      title: item.name,
+      unit_price: Number(item.price),
+      currency_id: "ARS",
+      quantity: item.count
+    }
+  })
+
+  fetch('/api/checkout', {
+    method: 'POST',
+    body: JSON.stringify(preference),
+    headers:{
+      'Content-Type': 'application/json'
+    }
+  })
+  .then(res => {
+    return res.json()
+  })
+  .then(res => {
+    if (res.success) {
+      // delete cart
+      shoppingCart.clearCart()
+      // redirect to mercado pago
+      window.location.replace(res.init_point)
+    }else{
+      alert("El carro esta vacío...")
+      document.getElementById("checkoutCartBtn").removeAttribute("disabled")
+      document.getElementById("checkoutCartBtn").value = "Comprar ahora"
+    }
+  })
+  .catch(err => {
+    alert("err", err)
+  })
+}
+
+// checkout item
+const checkout = (event, item) => {
+  event.preventDefault()
+  // disabled button submit
+  document.getElementById("checkoutBtn").setAttribute("disabled", true)
+  document.getElementById("checkoutBtn").value = "cargando..."
+
+  let preference = {
+    items: [
+      {
+        id: item._id,
+        title: item.title,
+        unit_price: Number(item.price),
+        currency_id: 'ARS',
+        quantity: Number(event.target.qty.value),
+      }
+    ]
+  }
+
+  fetch('/api/checkout', {
+    method: 'POST',
+    body: JSON.stringify(preference),
+    headers:{
+      'Content-Type': 'application/json'
+    }
+  })
+  .then(res => {
+    return res.json()
+  })
+  .then(res => {
+    if (res.success) {
+      // delete cart
+      shoppingCart.clearCart()
+      renderCart()
+      document.getElementById("cart_items").innerHTML = "Vacío..."
+      // redirect to mercado pago
+      window.location.replace(res.init_point)
+    }
+  })
+  .catch(err => {
+    alert("err", err)
+  })
+}
+
+// notification render
+const renderAlert = (type, content) => {
+  let alert = `
+    <div class="alert alert-${type} alert-dismissible fade show" role="alert">
+      ${content}
+      <button type="button" class="close" data-dismiss="alert" aria-label="Close">
+        <span aria-hidden="true">&times;</span>
+      </button>
+    </div>
+  `
+  document.getElementById("alert_content").innerHTML = alert
+}
+
+// render cart
 const renderCart = () => {
   let cartItems = shoppingCart.listCart()
 

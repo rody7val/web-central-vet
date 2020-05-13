@@ -16,4 +16,4 @@ div#cart.modal.fade(aria-hidden="true")
             span#cart_total
       class.modal-footer
         button.btn.btn-secondary(data-dismiss="modal") Cerrar
-        button.btn.btn-primary Comprar ahora      
+        input#checkoutCartBtn.btn.btn-primary(type="submit",value="Comprar ahora",onclick="checkoutCart(event)")
