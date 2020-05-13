@@ -53,3 +53,7 @@ app.get(/\/(.+)/, function (req, res) {
 app.listen(config.port, "0.0.0.0", () => {
   console.log('Servidor funcionando!');
 })
+
+//firebase.auth().onAuthStateChanged((user) => {
+  //console.log(user)
+//}

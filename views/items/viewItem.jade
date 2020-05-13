@@ -35,7 +35,7 @@ block content
                     value="1"
                     max=`${item.qty}`)
                 small.text-muted.text-right(style="display: inherit") (!{item.qty} disponibles)
-              input#checkoutBtn.btn.btn-primary.btn-sm.mr-2(
+              input#checkoutBtn.btn.btn-vete.btn-sm.mr-2(
                 type="submit"
                 value="Comprar ahora")
             form(onsubmit=`addToCart(event, window.$item)`)
@@ -44,7 +44,7 @@ block content
                 name="cart_qty"
                 value="1"
                 max=`${item.qty}`)
-              button#addToCartBtn.btn.btn-outline-warning.btn-sm.mt-2(
+              button#addToCartBtn.btn.btn-warning.btn-sm.mt-2(
                 type="submit") Agregar al carrito
             img(src="/img/MP-payButton-logos.png")
             hr

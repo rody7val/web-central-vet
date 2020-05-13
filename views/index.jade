@@ -2,9 +2,23 @@
 extends ./layout.jade
 
 block content
-  section#breadcrumb.container
-    nav(aria-label="breadcrumb")
-      ol(class="breadcrumb")
-        li.breadcrumb-item.active(aria-current="page") Inicio
-  section#main.container
-    p homepage
+  .jumbotron.jumbotron-fluid.navbar-dark
+    .container
+      h1.display-4 Veterinaria Central Vet
+      .lead Bienvenidos!
+      p Encontrá los mejores productos y servicios en nuestra Central Veterinaria de Pigüé
+      hr
+      a.btn.btn-vete.btn-sm.mr-2(href="/items") Productos
+      a.btn.btn-warning.btn-sm(href="/servicios") Servcios
+  #ofertas.carousel.slide(data-ride="carousel")
+    .carousel-inner
+      .carousel-item.active
+        img(src="https://placekitten.com/1300/200",alt="...")
+      .carousel-item
+        img(src="https://placekitten.com/1300/200",alt="...")
+    a.carousel-control-prev(href="#ofertas",role="button",data-slide="prev")
+      span.carousel-control-prev-icon(aria-hidden="true")
+      span.sr-only Previous
+    a.carousel-control-next(href="#ofertas",role="button",data-slide="next")
+      span.carousel-control-next-icon(aria-hidden="true")
+      span.sr-only Next
