@@ -4,6 +4,10 @@ body {
 section#menu img#logo{
   border-radius: 50%
 }
+.form-group{
+  margin-bottom: 1rem!important;
+  display: block!important;
+}
 #footer a,.breadcrumb a{
   text-decoration: none;
 }
@@ -99,6 +103,12 @@ section#menu img#logo{
 }
 .shadow{
   box-shadow: 0 8px 16px 0 rgba(0,0,0,.1);
+}
+.dropdown{
+  color: #fff
+}
+.dropdown img{
+  border-radius: 50%
 }
 @media (max-width: 575.98px) {
   #breadcrumb{

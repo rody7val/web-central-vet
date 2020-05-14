@@ -1,0 +1,37 @@
+div#createAuth.modal.fade(aria-hidden="true")
+  div.modal-dialog.modal-lg
+    div.modal-content
+      div.modal-header
+        h4.modal-title Crear Cuenta &nbsp;
+        button.close(
+          type="button"
+          data-dismiss="modal"
+          aria-label="Close")
+          span(aria-hidden="true") &times;
+      div.modal-body
+        form(onsubmit="AuthCreate(event)")
+          .form-group
+            label.d-block Email
+            input.form-control.d-block(
+              type="email"
+              name="email"
+              placeholder="email"
+              required)
+          .form-group
+            label.d-block Contraseña
+            input.form-control.d-block(
+              type="password"
+              name="img"
+              title="Minimo 6 caracteres"
+              onchange="this.setCustomValidity(this.validity.patternMismatch ? this.title : '');"
+              placeholder="contraseña"
+              pattern=".{6,}"
+              required)
+            small.form-text.text-muted Mínimo 6 caracteres.
+          hr
+          button.btn.btn-secondary.btn-sm.mr-2(data-dismiss="modal") Cerrar
+          input.btn.btn-primary.btn-sm(type="submit",value="Crear")
+        button.btn.btn-link(
+          data-toggle="modal"
+          data-target="#signInAuth"
+        ) Ya tienes una cuenta? Entrar

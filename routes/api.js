@@ -1,5 +1,6 @@
 // Controllers
 const items = require('../controllers/itemsController')
+const auth = require('../controllers/authController')
 const mp = require('../controllers/mpController')
 
 module.exports = express => {
@@ -16,6 +17,10 @@ module.exports = express => {
 
   // checkout
   router.post('/checkout', mp.create)
+
+  // auth
+  router.post('/auth', auth.signIn)
+  router.post('/auth/out', auth.signOut)
 
   return router
 }

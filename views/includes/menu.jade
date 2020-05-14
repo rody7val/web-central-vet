@@ -12,12 +12,43 @@ section#menu
           li.nav-item
             a.nav-link(href="/items") Productos
       .form-inline
-        button.btn.btn-outline-warning.btn-sm(data-toggle="modal" data-target="#cart")
+        if session.user
+          .dropdown.mr-2
+            .dropdown-toggle(
+              id="dropdownMenuButton"
+              data-toggle="dropdown"
+              aria-haspopup="true"
+              aria-expanded="false")
+              img(
+                src=`${session.user.photoURL}`
+                width="30px"
+              )
+            .dropdown-menu(aria-labelledby="dropdownMenuButton")
+              a.dropdown-item(href="#") Mis compras
+              .dropdown-item(
+                onclick="googleOut()"
+                style="cursor: pointer;"
+              ) Salir
+        else
+          button.btn.btn-primary.btn-sm.mr-2(onclick="googleAuth()")
+            b Acceder
+        //-  button.btn.btn-primary.btn-sm.mr-2(
+        //-    data-toggle="modal"
+        //-    data-target="#createAuth"
+        //-  )
+        //-    b Acceder
+        //-  include ../auth/create.jade
+        //-  include ../auth/signIn.jade
+        script(src="/js/auth/index.js")
+        button.btn.btn-outline-warning.btn-sm(
+          data-toggle="modal"
+          data-target="#cart"
+        )
           b Carro &nbsp;
           span#cart_count.badge.badge-pill.badge-warning
         include ../cart/index.jade
         script(src="/js/cart/cart.js")
-        script(src="/js/cart/events.js")  
+        script(src="/js/cart/events.js")
       button.navbar-toggler(
         type="button"
         data-toggle="collapse"

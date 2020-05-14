@@ -1,7 +1,11 @@
+- const isAdmin = (email) => { if (email === "rod7val@gmail.com") { return true } return false }
 //- index.jade
 extends ../layout.jade
 
 block content
+  //- dinamic vars
+  script.
+    window.$user = !{JSON.stringify(session && session.user ? session.user : null).replace(/<\//g, "<\\/")}
   section#breadcrumb.container
     nav(aria-label="breadcrumb")
       ol(class="breadcrumb")
@@ -10,8 +14,9 @@ block content
         li.breadcrumb-item.active(aria-current="page") Productos
   section#main.items.container
     h2 Productos &nbsp;
-      small
-        button(class="btn btn-primary btn-sm",data-toggle="modal",data-target="#addItem") Agregar
+      if (session && session.user) ? session.user.email === "rod7val@gmail.com" : null
+        small
+          button(class="btn btn-primary btn-sm",data-toggle="modal",data-target="#addItem") Agregar
     include ./createItem.jade
     ul#items.list-group cargando...
   script(src="/js/items/all.js")

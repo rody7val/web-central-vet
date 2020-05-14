@@ -90,6 +90,12 @@ const deleteItem = (title, id) => {
 
 // print items html
 const renderItems = (data, id) => {
+  let butonDelete = (title, id) => { return `
+    <span
+      class="badge badge-danger badge-pill btn-delete"
+      onclick="deleteItem('${title}', '${id}')"
+    >&times;</span>
+  `}
   let html = data.map((item, index) => {
     return(`
       <li class="list-group-item shadow mp0">
@@ -105,7 +111,9 @@ const renderItems = (data, id) => {
                 <p class="title-list">${item.title}</p>
               </a>
               <h3 class="price-list">$ ${item.price}</h3>
-              <span class="badge badge-danger badge-pill btn-delete" onclick="deleteItem('${item.title}', '${item._id}')">&times;</span>
+              ${
+                isAdmin($user && $user.email ? $user.email : null) ? butonDelete(item.title, item._id) : ""
+              }
             </div>
           </div>
         </div>

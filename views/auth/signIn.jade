@@ -1,0 +1,18 @@
+div#signInAuth.modal.fade(aria-hidden="true")
+  div.modal-dialog.modal-lg
+    div.modal-content
+      div.modal-header
+        h4.modal-title Entrar con Cuenta &nbsp;
+        button.close(
+          type="button"
+          data-dismiss="modal"
+          aria-label="Close")
+          span(aria-hidden="true") &times;
+      div.modal-body
+        p form signIn
+        button.btn.btn-link(
+          data-dismiss="modal"
+        ) No tienes una cuenta? Crear una
+      class.modal-footer
+        button.btn.btn-secondary.btn-sm(data-dismiss="modal") Cerrar
+        input.btn.btn-primary.btn-sm(type="submit",value="Entrar")

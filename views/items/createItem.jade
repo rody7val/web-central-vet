@@ -6,8 +6,7 @@ div#addItem.modal.fade(tabindex="-1",role="dialog",aria-labelledby="modal-create
         button.close(type="button",data-dismiss="modal",aria-label="Close")
           span(aria-hidden="true") &times;
       div.modal-body
-        form(
-          onsubmit="addItem(event)")
+        form(onsubmit="addItem(event)")
           div.form-group
             img#preview.img-center
             input.form-control(
