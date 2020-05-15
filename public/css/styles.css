@@ -24,18 +24,18 @@ section#menu img#logo{
   background-color: #7952b3
 }
 #footer{
-  background-color: #e9ecef;
+  background-color: #d4b5e6;
   padding-top: 2rem;
+  color: #212529;
+}
+#footer .lead, #footer a {
   color: #212529;
 }
 #footer a:hover {
   color: #007bff;
 }
-#footer a{
-  color: #212529;
-}
 #footer h3{
-  color: #007bff;
+  color: #212529;
 }
 #footer-logo{
   border-radius: 50%;

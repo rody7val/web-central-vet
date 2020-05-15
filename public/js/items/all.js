@@ -7,14 +7,41 @@ const getItems = () => {
       return res.json()
     })
     .then(res => {
-      if (res.success && res.data.length) {
-        return renderItems(res.data, 'items')
+      if (res.success && res.items.length) {
+        return renderItems(res.items, 'items')
       }
       document.getElementById('items').innerHTML = 'Sin resultados'
     })
     .catch(err => {
       console.log(err)
     })
+}
+
+const getItemsSearch = (event, name) => {
+  event.preventDefault()
+  document.getElementById('items').innerHTML = 'cargando...'
+
+  fetch('/api/items/search', {
+    method: 'POST',
+    body: JSON.stringify({
+      filter_title: event.target.value,
+    }),
+    headers:{
+      'Content-Type': 'application/json'
+    }
+  })
+  .then(res => {
+    return res.json()
+  })
+  .then(res => {
+    if (res.success && res.items.length) {
+      return renderItems(res.items, 'items')
+    }
+    document.getElementById('items').innerHTML = 'Sin resultados'
+  })
+  .catch(err => {
+    console.log(err)
+  })
 }
 
 // add item - POST

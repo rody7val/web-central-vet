@@ -14,6 +14,13 @@ block content
         li.breadcrumb-item.active(aria-current="page") Productos
   section#main.items.container
     h2 Productos &nbsp;
+    form.form-inline
+      input.form-group.form-control.form-control-sm.mb-2.mr-2(
+        oninput="getItemsSearch(event, this.name)"
+        type="text"
+        name="filter_title"
+        placeholder="Buscar"
+        required)
       if (session && session.user) ? session.user.email === "rod7val@gmail.com" : null
         small
           button(class="btn btn-primary btn-sm",data-toggle="modal",data-target="#addItem") Agregar

@@ -21,7 +21,7 @@ exports.all = (req, res) => {
     if (err) {
       return res.json({success: false, err: err})
     }
-    res.json({success: true, data: items})
+    res.json({success: true, items: items})
   })
 }
 
@@ -44,5 +44,24 @@ exports.delete = (req, res, next) => {
       return res.json({success: false, err: err})
     }
     res.json({success: true})
+  })
+}
+
+exports.search = (req, res) => {
+  let filter = new RegExp(req.body.filter_title, "gi")
+
+  Item.find({ 
+    title: filter,
+  })
+  .sort('-created')
+  .exec((err, items) => {
+    console.log(items.length)
+    if (err) {
+      return res.json({success: false, err: err})
+    }
+    res.json({
+      success: true,
+      items: items
+    })
   })
 }

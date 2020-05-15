@@ -13,6 +13,7 @@ module.exports = express => {
   // items
   router.get('/items', items.all)
   router.post('/items', items.add)
+  router.post('/items/search', items.search)
   router.post('/items/:itemId/delete', items.delete);
 
   // checkout
