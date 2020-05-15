@@ -3,10 +3,17 @@ div#addItem.modal.fade(tabindex="-1",role="dialog",aria-labelledby="modal-create
     div.modal-content
       div.modal-header
         h5#modal-create.modal-title Crear Producto
+          button.btn.btn-info.btn-sm.ml-2(
+            data-toggle="modal"
+            data-target="#addCategory") Crear Categoria
         button.close(type="button",data-dismiss="modal",aria-label="Close")
           span(aria-hidden="true") &times;
       div.modal-body
         form(onsubmit="addItem(event)")
+          label Categoria
+          .categories
+          hr
+          label Imagen
           div.form-group
             img#preview.img-center
             input.form-control(
@@ -24,6 +31,8 @@ div#addItem.modal.fade(tabindex="-1",role="dialog",aria-labelledby="modal-create
             name="img"
             placeholder="url img"
             disabled)
+          hr
+          label Detalles
           input.form-group.form-control(
             type="text"
             name="title"

@@ -2,7 +2,6 @@ exports.signIn = (req, res, next) => {
   if (!req.body.user) {
   	return res.json({success: false})
   }
-  console.log(req.body.user)
   req.session.user = req.body.user
   res.json({success: true})
 }

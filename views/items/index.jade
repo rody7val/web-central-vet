@@ -13,7 +13,6 @@ block content
           a(href="/") Inicio
         li.breadcrumb-item.active(aria-current="page") Productos
   section#main.items.container
-    h2 Productos &nbsp;
     form.form-inline
       input.form-group.form-control.form-control-sm.mb-2.mr-2(
         oninput="getItemsSearch(event, this.name)"
@@ -21,9 +20,13 @@ block content
         name="filter_title"
         placeholder="Buscar"
         required)
+      .categories(style="display: none")
       if (session && session.user) ? session.user.email === "rod7val@gmail.com" : null
         small
-          button(class="btn btn-primary btn-sm",data-toggle="modal",data-target="#addItem") Agregar
+          button.btn.btn-primary.btn-sm.mb-3(
+          data-toggle="modal"
+          data-target="#addItem") Crear Producto
     include ./createItem.jade
+    include ./createCategory.jade
     ul#items.list-group cargando...
   script(src="/js/items/all.js")

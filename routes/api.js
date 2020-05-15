@@ -1,4 +1,5 @@
 // Controllers
+const categories = require('../controllers/categoriesController')
 const items = require('../controllers/itemsController')
 const auth = require('../controllers/authController')
 const mp = require('../controllers/mpController')
@@ -9,6 +10,10 @@ module.exports = express => {
 
   // load
   router.param('itemId', items.load)
+
+  // categories
+  router.get('/categories', categories.all)
+  router.post('/categories', categories.add)
 
   // items
   router.get('/items', items.all)

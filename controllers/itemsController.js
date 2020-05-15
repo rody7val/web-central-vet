@@ -3,7 +3,9 @@ const mp = require('mercadopago')
 
 // Autoload - factoriza el código si la ruta incluye :itemId
 exports.load = (req, res, next, itemId) => {
-  Item.findOne({ _id: itemId })
+  Item
+  .findOne({ _id: itemId })
+  .populate('category')
   .exec((err, item) => {
     if (item){
       req.item = item
@@ -16,6 +18,7 @@ exports.load = (req, res, next, itemId) => {
 exports.all = (req, res) => {
   Item
   .find()
+  .populate('category')
   .sort('-created')
   .exec((err, items) => {
     if (err) {
@@ -49,13 +52,13 @@ exports.delete = (req, res, next) => {
 
 exports.search = (req, res) => {
   let filter = new RegExp(req.body.filter_title, "gi")
-
-  Item.find({ 
-    title: filter,
+  Item
+  .find({
+    title: filter
   })
+  .populate('category')
   .sort('-created')
   .exec((err, items) => {
-    console.log(items.length)
     if (err) {
       return res.json({success: false, err: err})
     }

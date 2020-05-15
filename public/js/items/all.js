@@ -1,4 +1,25 @@
 // Dynamic Managed API
+
+// get items - GET
+const getCategories = () => {
+  document.getElementsByClassName("categories")[0].innerHTML = 'cargando...'
+  document.getElementsByClassName("categories")[1].innerHTML = 'cargando...'
+  fetch('/api/categories')
+    .then(res => {
+      return res.json()
+    })
+    .then(res => {
+      if (res.success && res.categories.length) {
+        return renderCategories(res.categories, "categories")
+      }
+    document.getElementsByClassName("categories")[0].innerHTML = '<select class="form-control form-control-sm mr-2 mb-3" name="category"><option value="" selected>Categoria...</option></select>'
+    document.getElementsByClassName("categories")[1].innerHTML = '<select class="form-control form-control-sm mr-2 mb-3" name="category"><option value="" selected>Categoria...</option></select>'
+    })
+    .catch(err => {
+      console.log(err)
+    })
+}
+
 // get items - GET
 const getItems = () => {
   document.getElementById('items').innerHTML = 'cargando...'
@@ -7,6 +28,7 @@ const getItems = () => {
       return res.json()
     })
     .then(res => {
+      console.log(res.items)
       if (res.success && res.items.length) {
         return renderItems(res.items, 'items')
       }
@@ -17,6 +39,7 @@ const getItems = () => {
     })
 }
 
+// get items by title - POST
 const getItemsSearch = (event, name) => {
   event.preventDefault()
   document.getElementById('items').innerHTML = 'cargando...'
@@ -24,7 +47,7 @@ const getItemsSearch = (event, name) => {
   fetch('/api/items/search', {
     method: 'POST',
     body: JSON.stringify({
-      filter_title: event.target.value,
+      filter_title: event.target.value
     }),
     headers:{
       'Content-Type': 'application/json'
@@ -44,6 +67,39 @@ const getItemsSearch = (event, name) => {
   })
 }
 
+// add category - POST
+const addCategory = (event) => {
+  event.preventDefault()
+  // handle btn submit
+  document.getElementById("addSubmitCategory").value = "cargando..."
+  document.getElementById("addSubmitCategory").setAttribute("disabled", true)
+  fetch('/api/categories', {
+    method: 'POST',
+    body: JSON.stringify({ category: {name: event.target.category.value} }),
+    headers:{
+      'Content-Type': 'application/json'
+    }
+  })
+  .then(res => {
+    return res.json()
+  })
+  .then(res => {
+    if (res.success) {
+      // reset form values
+      event.target.reset()
+      // reset btn submit
+      document.getElementById("addSubmitCategory").value = "Guardar"
+      document.getElementById("addSubmitCategory").removeAttribute("disabled")
+      alert("categoria creada!")
+      return getCategories()
+    }
+    alert("res", res)
+  })
+  .catch(err => {
+    alert("err", err)
+  })
+}
+
 // add item - POST
 const addItem = (event) => {
   event.preventDefault()
@@ -53,6 +109,7 @@ const addItem = (event) => {
   document.getElementById("addSubmit").setAttribute("disabled", true)
 
   let item = {
+    category: event.target.category.value,
     img: event.target.img.value,
     title: event.target.title.value,
     desc: event.target.desc.value,
@@ -138,6 +195,7 @@ const renderItems = (data, id) => {
                 <p class="title-list">${item.title}</p>
               </a>
               <h3 class="price-list">$ ${item.price}</h3>
+              <span class="badge badge-warning">${item.category.name}</span>
               ${
                 isAdmin($user && $user.email ? $user.email : null) ? butonDelete(item.title, item._id) : ""
               }
@@ -146,8 +204,30 @@ const renderItems = (data, id) => {
         </div>
       </li>`)
     }).join(" ")
-
+              
   document.getElementById(id).innerHTML = html
+}
+
+// print categories html
+const renderCategories = (data, className) => {
+  let options = data.length ? data.map((category, index) => {
+    return `
+      <option value="${category._id}">${category.name}</option>
+    `
+    }).join(" ") : ""
+
+  document.getElementsByClassName(className)[0].innerHTML = `
+    <select class="form-control form-control-sm mr-2 mb-3" name="category">
+      <option value="" selected>Categoria...</option>
+        ${options}
+    </select>
+  `
+  document.getElementsByClassName(className)[1].innerHTML = `
+    <select class="form-control form-control-sm mr-2 mb-3" name="category">
+      <option value="" selected>Categoria...</option>
+        ${options}
+    </select>
+  `
 }
 
 const onChangeImage = (event) => {
@@ -173,3 +253,4 @@ const onChangeImage = (event) => {
 
 // init
 getItems()
+getCategories()

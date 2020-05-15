@@ -1,0 +1,14 @@
+div#addCategory.modal.fade(tabindex="-1",role="dialog",aria-labelledby="modal-create",aria-hidden="true")
+  div.modal-dialog(role="document")
+    div.modal-content
+      div.modal-header
+        h5#modal-create.modal-title Crear Categoria
+        button.close(type="button",data-dismiss="modal",aria-label="Close")
+          span(aria-hidden="true") &times;
+      div.modal-body
+        form(onsubmit="addCategory(event)")
+          input.form-group.form-control(
+            type="text"
+            name="category"
+            placeholder="nombre")
+          input#addSubmitCategory.btn.btn-info(type="submit",value="Guardar")
