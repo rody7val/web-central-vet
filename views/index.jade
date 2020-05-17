@@ -2,12 +2,13 @@
 extends ./layout.jade
 
 block content
-  .jumbotron.jumbotron-fluid.navbar-dark
+  #main
+  .jumbotron.jumbotron.text-white
     .container
-      h1.display-4 Veterinaria Central Vet
+      h1 CentralVet
+      hr
       .lead Bienvenidos!
       p Encontrá los mejores productos y servicios en nuestra Central Veterinaria de Pigüé
-      hr
       a.btn.btn-vete.btn-sm.mr-2(href="/items") Productos
       a.btn.btn-warning.btn-sm(href="/servicios") Servcios
   #ofertas.carousel.slide(data-ride="carousel")

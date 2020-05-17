@@ -1,9 +1,15 @@
+section#GP
+  .container
+    .row.mp0.pb-4.pt-4
+      .col-sm-4
+        img.img-center(src="/img/avatar.jpg")
+      .col-sm-8.title
+        h3 Guillermina Puente
+        p.text-muted
+          i Médico Veterinario
 section#footer
   .container
     .row.mp0
-      .col-sm-4.mp0
-        a(href="/")
-          img#footer-logo.img-center.shadow(src="/img/logo-central-vet.jpg")
       .col-sm-4.mp0
         h3 Contacto
         ul
@@ -37,10 +43,14 @@ section#footer
             target="_blank"
             noopener
             noreferrer) Instagram
+      .col-sm-4.mp0
+        a(href="/")
+          img#footer-logo.img-center.shadow(src="/img/logo-central-vet.jpg")
     .row.mp0
       .col-sm-12
         hr
-        p.lead.text-center Médico Veterinario Guillermina Puente
+        p.text-center
+          small Made with love
 script(src="/js/jquery.min.js")
 script(src="/js/popper.min.js")
 script(src="/js/bootstrap.min.js")

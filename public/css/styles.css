@@ -21,7 +21,8 @@ section#menu img#logo{
   display: inline-block;
 }
 #menu .navbar {
-  background-color: #7952b3
+  /*background-color: #7952b3*/
+  background-color: #fff;
 }
 #footer{
   background-color: #d4b5e6;
@@ -32,10 +33,10 @@ section#menu img#logo{
   color: #212529;
 }
 #footer a:hover {
-  color: #007bff;
+  color: #7952b3;
 }
 #footer h3{
-  color: #212529;
+  color: #7952b3;
 }
 #footer-logo{
   border-radius: 50%;
@@ -45,7 +46,8 @@ section#menu img#logo{
   max-height: 100px
 }
 .jumbotron{
-  background-color: #e9ecef;
+  background-color: #7952b3;
+  color: #fff;
   margin: 0;
 }
 .img-center{
@@ -86,6 +88,12 @@ section#menu img#logo{
 #items a.btn {
   color: #fff;
 }
+#GP{
+  background-color: #fff
+}
+#GP img {
+  max-width: 120px
+}
 .btn-delete{
   cursor: pointer;
   position: absolute;
@@ -110,7 +118,30 @@ section#menu img#logo{
 .dropdown img{
   border-radius: 50%
 }
+.title{
+  padding-top: 20px
+}
+/*xl*/
+@media (max-width: 1199.98px) {}
+/*lg*/
+@media (max-width: 991.98px) {}
+/*md*/
+@media (max-width: 767.98px) {
+  .img-view{
+    max-height: 200px;
+  }
+}
+/*sm*/
 @media (max-width: 575.98px) {
+  .title{
+    text-align: center;
+  }
+  .img-view{
+    max-height: 200px;
+  }
+  .card-body{
+    text-align: center!important;
+  }
   #breadcrumb{
     display: none;
   }
@@ -121,9 +152,6 @@ section#menu img#logo{
   }
   .card{
     border: 0px;
-  }
-  .img-view{
-    max-height: 200px;
   }
   .img-list{
     height: 150px;
@@ -147,8 +175,3 @@ section#menu img#logo{
     width: 100%
   }
 }
-@media (max-width: 767.98px) {}
-
-@media (max-width: 991.98px) {}
-
-@media (max-width: 1199.98px) {}
