@@ -106,6 +106,10 @@ a, a:hover, a:focus {
     background: indigo;
 }
 
+.sidebar-header img {
+    border-radius: 50%
+}
+
 #sidebar ul.components {
     padding: 20px 0;
     border-bottom: 1px solid indigo;
@@ -128,12 +132,12 @@ a, a:hover, a:focus {
 }
 
 #sidebar ul li.active > a, a[aria-expanded="true"] {
-    color: #7952b3;
+    color: #fff;
     background: indigo;
 }
 
-.sidebar-header img {
-    border-radius: 50%
+#sidebar ul li a i {
+    width: 20px
 }
 
 .navbar {
@@ -198,15 +202,22 @@ hr{
 }
 
 .home img {
-    box-shadow: 0 .5rem 1rem rgba(0,0,0,.15)!important;
-    max-width: 500px;
     height: auto;
+    margin: 0 auto;
+}
+
+.img-center{
+    margin: 0 auto;
+}
+.card-img-top {
+    box-shadow: none;
+
+}
+.category{
+    max-width: 18rem; margin: 0 auto; background-color: #f2ecf3; cursor: pointer; text-decoration: none; color: #333;
 }
 
 @media (max-width: 768px) {
-    .home h2 {
-        text-align: center;
-    }
     #content {
         padding: 18px;
     }

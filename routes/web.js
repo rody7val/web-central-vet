@@ -12,6 +12,9 @@ module.exports = express => {
   router.get('/', web.home)
   router.get('/items', web.items)
   router.get('/items/:itemId', web.viewItem)
+  //notices
+  router.get('/notices', web.notices)
+  router.get('/notices/:noticeId', web.viewNotice)
 
   return router
 }

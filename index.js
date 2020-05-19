@@ -30,6 +30,8 @@ app.use(express.static(__dirname + '/public'));
 
 // Session helpers
 app.use((req, res, next) => {
+    console.log(req.path)
+    req.session.path = req.path
     res.locals.session = req.session;
     next();
 });

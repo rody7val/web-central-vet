@@ -11,3 +11,13 @@ exports.viewItem = (req, res) => {
     item: req.item
   })
 }
+
+exports.notices = (req, res) => {
+  res.render('notices')
+}
+
+exports.viewNotice = (req, res) => {
+  res.render('notices/viewNotice', {
+    item: req.item
+  })
+}

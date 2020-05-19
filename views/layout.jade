@@ -1,10 +1,15 @@
 doctype html
 html(lang="es")
   head
-    include ./includes/head.jade
     block title
       title Central-Vet Pigüé
+    include ./includes/head.jade
   body
-    include ./includes/menu.jade
-    block content
+    .wrapper
+      nav#sidebar
+        include ./includes/sidebar.jade
+      #content
+        include ./includes/menu.jade
+        block content
+      .overlay
     include ./includes/footer.jade
