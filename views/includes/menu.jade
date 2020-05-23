@@ -1,11 +1,14 @@
-nav.navbar.navbar-expand-lg.navbar-light.bg-light
+nav.navbar.fixed-top.navbar-expand-lg.navbar-light.bg-light
   .container-fluid
-    button#sidebarCollapse.btn.btn-vete
+    button#sidebarCollapse.btn.btn-vete.btn-sm
       i.fa.fa-align-left.mr-1
       span Menu
-    if session.path === "/notices"
-      button#new_story_home.btn.btn-secondary.d-inline-block.ml-auto.action-admin(title="Nueva entrada")
-        i.fa.fa-plus
-    button.btn.btn-outline-warning.ml-2
-      i.fa.fa-shopping-cart.mr-1
-      span 0
+      //- cart menu
+      button.btn.btn-info.btn-sm.ml-2(title="Carrito",data-toggle="modal",data-target="#cart")
+        i.fa.fa-shopping-cart.mr-1
+        span#cart_count 0
+include ../items/createItem.jade
+include ../items/createCategory.jade
+include ../cart/index.jade
+script(src="/js/cart/cart.js")
+script(src="/js/cart/events.js")

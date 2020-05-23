@@ -1,0 +1,15 @@
+//- index.jade
+extends ./layout.jade
+
+block content
+  #err.container
+    h3.text-center
+      code !{err && err.status ? err.status : 500}
+    h5.text-center not found
+    a.text-center.btn-block.btn.btn-link(href="/") Volver
+    div
+      small
+        b !{error}
+    small
+      p !{message}
+    pre !{err}

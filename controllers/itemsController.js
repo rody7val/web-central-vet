@@ -1,4 +1,5 @@
 const Item = require('../models/item_model')
+const categories = require('../controllers/categoriesController')
 const mp = require('mercadopago')
 
 // Autoload - factoriza el código si la ruta incluye :itemId
@@ -12,6 +13,18 @@ exports.load = (req, res, next, itemId) => {
       return next()
     }
     next(new Error('No existe itemId = '+ itemId))
+  })
+}
+
+exports.getAll = (filter, cb) => {
+  Item
+    .find(filter)
+    .sort('-created')
+    .exec((err, items) => {
+      if (err) {
+        return cb(new Error("No hay items."))
+      }
+      cb(null, items)
   })
 }
 
@@ -35,7 +48,14 @@ exports.add = (req, res) => {
     if (err) {
       return res.json({success: false, err: err})
     }
-    res.json({success: true})
+
+    categories.setItemRelation(item, (err, success) => {
+      if (err) {
+        return res.json({success: false, err: err})
+      }
+
+      res.json({success: success})
+    })
   })
 }
 

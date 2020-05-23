@@ -6,11 +6,12 @@ const cookieParser = require('cookie-parser')
 const bodyParser = require('body-parser')
 const mercadopago = require('mercadopago')
 const session = require('express-session')
-
+const Categories = require('./controllers/categoriesController')
 // Create Express Application
 const app = express()
 const api = require('./routes/api')(express);
 const web = require('./routes/web')(express);
+
 
 // Data Base Conection
 mongoose.connect(config.database, {useNewUrlParser: true, useUnifiedTopology: true});
@@ -30,10 +31,21 @@ app.use(express.static(__dirname + '/public'));
 
 // Session helpers
 app.use((req, res, next) => {
-    console.log(req.path)
+  Categories.getAll((err, categories) => {
+    //routes
     req.session.path = req.path
+    req.session.query = req.query
+    console.log(req.query)
+    //auth
     res.locals.session = req.session;
+    //vars
+    res.locals.heads = config.heads;
+    res.locals.services = config.services;
+    //items and categories
+    res.locals._categories = categories
     next();
+  })
+
 });
 
 // Set Jade as View Engine
@@ -50,20 +62,36 @@ mercadopago.configure({
   client_secret: config.client_secret
 })
 
-// File from Parameter View Examples
-app.get(/\/(.+)/, function (req, res) {
-  const fileFromParameter = req.params[0] + '.js'
+// catch 404 and forward to error handler
+app.use((req, res, next) => {
+    let err = new Error('Not Found');
+    err.status = 404;
+    next(err);
+});
 
-  if (fs.existsSync(fileFromParameter)) {
-    // Execute the file found
-    require('./' + fileFromParameter).run(req, res)
-  } else {
-    // Return 404
-    res.status(404).render('404', {
-      file: fileFromParameter
-    })
-  }
-})
+// development error handler
+// will print stacktrace
+if (app.get('env') === 'development') {
+    app.use((err, req, res, next) => {
+        res.status(err.status || 500);
+        res.render('error', {
+            message: err.message,
+            error: err,
+            errors: []
+        });
+    });
+}
+
+// production error handler
+// no stacktraces leaked to user
+app.use((err, req, res, next) => {
+    res.status(err.status || 500);
+    res.render('error', {
+        message: err.message,
+        error: {},
+        errors: []
+    });
+});
 
 // Start Express Application
 app.listen(config.port, "0.0.0.0", () => {

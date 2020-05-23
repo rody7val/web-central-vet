@@ -1,8 +1,8 @@
 -var sidebar_title = "CentralVet";
--var sidebar_link_HOME = "Inicio";
--var sidebar_dropdown_SERVICES = "Servicios";
+-var sidebar_link_HOME = "Veterinaria";
+-var sidebar_dropdown_SERVICES = "Servicio";
 -var sidebar_link_NOTICES = "Historias";
--var sidebar_dropdown_SHOP = "Comprar";
+-var sidebar_dropdown_SHOP = "Tienda";
 -var sidebar_link_CONTACT = "Contacto";
 
 //- DISMISS
@@ -15,53 +15,32 @@ div#dismiss
       img(src="/img/logo-central-vet.jpg"
         width="50"
         alt="logo") 
-    !{sidebar_title}
+    !{heads.sidebar.title}
 ul.list-unstyled.components
-  p.text-center(title="Médico Veterinario Guillermina Puente") M.V. Guillermina Puente
+  p.text-center !{heads.sidebar.auth}
   //- HOME
   li(class=`!{session.path === "/" ? "active" : ""}`)
     a(href="/")
       i.fa.fa-home.mr-2(aria-hidden="true")
-      !{sidebar_link_HOME}
+      !{heads.sidebar.home}
   //- ITEMS
   li(class=`!{(
-    session.path == "/items/alimentos" ||
+     session.path == "/items/alimentos" ||
     session.path == "/items/farmacia" ||
-    session.path == "/items/accesorios") ? "active" : ""}`)
+    session.path == "/items/accesorios"
+    ) ? "active" : ""}`)
     a.dropdown-toggle(href="#itemsSubmenu"
       data-toggle="collapse"
       aria-expanded="true"
       class="")
       i.fa.fa-shopping-cart.mr-2(aria-hidden="true")
-      !{sidebar_dropdown_SHOP}
+      !{heads.sidebar.shop}
     ul#itemsSubmenu.collapse.list-unstyled
-      li
-        a(href="/items/alimentos") Alimentos
-      li
-        a(href="/items/farmacia") Farmacia
-      li
-        a(href="/items/accesorios") Accesorios
-  //- SERVICES
-  li(class=`!{session.path === location.pathname ? "active" : ""}`)
-    a.dropdown-toggle(href="#serviceSubmenu"
-      data-toggle="collapse"
-      aria-expanded="true")
-      i.fa.fa-user-md.mr-2(aria-hidden="true")
-      !{sidebar_dropdown_SERVICES}
-    ul#serviceSubmenu.collapse.list-unstyled
-      li
-        a(href="/services/clinic") Clínica
-      li
-        a(href="/services/surgery") Cirugía
-      li
-        a(href="/services/vaccination") Vacunación
-  //- NOTICES
-  li(class=`!{session.path === "/notices" ? "active" : ""}`)
-    a(href="/notices")
-      i.fa.fa-file.mr-2(aria-hidden="true")
-      !{sidebar_link_NOTICES}
+      each category, index in _categories && _categories.length ? _categories : [{name: "Sin resultados...", _id: "#"}]
+        li.length
+          a(href=`/items?category=${category._id}`) !{category.name}
   //- CONTACT
   li(class=`!{session.path === "/contact" ? "active" : ""}`)
-    a(href="/contact")
+    a(href="#contact")
       i.fa.fa-address-card.mr-2(aria-hidden="true")
-      !{sidebar_link_CONTACT}
+      !{heads.sidebar.contact}

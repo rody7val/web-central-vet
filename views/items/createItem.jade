@@ -3,26 +3,26 @@ div#addItem.modal.fade(tabindex="-1",role="dialog",aria-labelledby="modal-create
     div.modal-content
       div.modal-header
         h5#modal-create.modal-title Crear Producto
-          button.btn.btn-info.btn-sm.ml-2(
-            data-toggle="modal"
-            data-target="#addCategory") Crear Categoria
         button.close(type="button",data-dismiss="modal",aria-label="Close")
           span(aria-hidden="true") &times;
       div.modal-body
         form(onsubmit="addItem(event)")
           label Categoria
-          .categories
-          hr
+          select.form-group.form-control.form-input.mr-2(
+            name="category"
+          )
+            option(disabled, selected) Seleccione...
+            each category, index in _categories
+              option(value=`${category._id}`) !{category.name}
           label Imagen
           div.form-group
             img#preview.img-center
             input.form-control(
-              onchange="onChangeImage(event)"
+              onchange="onChangeImage(event, 'uploadValue', 'urlImg', 'preview')"
               type="file"
               name="file"
               placeholder="Elije o arrastra una imagen..."
-              drop-placeholder="Arrastra una imagen..."
-              required)
+              drop-placeholder="Arrastra una imagen...")
             small.text-muted#uploadValue
           input.form-group.form-control(
             style="display: none;"
@@ -31,7 +31,6 @@ div#addItem.modal.fade(tabindex="-1",role="dialog",aria-labelledby="modal-create
             name="img"
             placeholder="url img"
             disabled)
-          hr
           label Detalles
           input.form-group.form-control(
             type="text"
@@ -55,3 +54,4 @@ div#addItem.modal.fade(tabindex="-1",role="dialog",aria-labelledby="modal-create
             placeholder="Cantidad en stock"
             required)
           input#addSubmit.btn.btn-primary(type="submit",value="Guardar")
+script(src="/js/items/all.js")

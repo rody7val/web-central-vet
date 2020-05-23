@@ -58,13 +58,16 @@ a, a:hover, a:focus {
 }
 
 #content {
+    padding-top: 100px;
     width: 100%;
-    padding: 40px;
     min-height: 100vh;
     transition: all 0.3s;
     position: absolute;
     top: 0;
     right: 0;
+}
+.card{
+    transition: all 0.3s;
 }
 
 #content.active {
@@ -80,7 +83,7 @@ a, a:hover, a:focus {
     /* transparent black */
     background: rgba(0, 0, 0, 0.7);
     /* middle layer, i.e. appears below the sidebar */
-    z-index: 998;
+    z-index: 1050;
     opacity: 0;
     /* animate the transition */
     transition: all 0.5s ease-in-out;
@@ -141,12 +144,28 @@ a, a:hover, a:focus {
 }
 
 .navbar {
+    z-index: 1040;
     padding: 15px 10px;
     background: #fff;
     border: none;
     border-radius: 0;
-    margin-bottom: 40px;
     box-shadow: 1px 1px 3px rgba(0, 0, 0, 0.1);
+}
+
+#alert_content{
+    z-index: 1050;
+    position: fixed;
+    z-index: 1050;
+    width: 100%;
+    top: 60px
+}
+
+.modal{
+
+}
+
+.modal-dialog {
+    z-index: 1060
 }
 
 ul ul a {
@@ -190,6 +209,10 @@ hr{
     margin-bottom: 50px
 }
 
+.lead-vete {
+  font-weight: 300;
+}
+
 .icon-svg-home {
     padding-top: 20px;
     color: #7952b3;
@@ -208,18 +231,53 @@ hr{
 
 .img-center{
     margin: 0 auto;
+    display: block;
 }
+
 .card-img-top {
     box-shadow: none;
-
 }
+
 .category{
-    max-width: 18rem; margin: 0 auto; background-color: #f2ecf3; cursor: pointer; text-decoration: none; color: #333;
+    margin: 0 auto;
+    background-color: #f2ecf3;
+    cursor: pointer;
+    text-decoration: none;
+    color: #333;
+    text-transform: uppercase;
+}
+.category:hover{
+    color: #17a2b8
+}
+
+.category img {
+    max-height: 190px;
+    object-fit: cover;
+}
+
+#cart .modal-body{
+    padding: 0px;
+}
+
+#container-fluid{
+    padding-left: 30px;
+    padding-right: 30px;
+}
+
+#preview, #preview_category, #preview_category_edit{
+    width: 100px
+}
+
+.badge-admin-item {
+    position: absolute;
+    cursor: pointer;
+    z-index: 2;
 }
 
 @media (max-width: 768px) {
-    #content {
-        padding: 18px;
+    #container-fluid{
+        padding-left: 15px;
+        padding-right: 15px;
     }
     #sidebarCollapse span {
         display: none;

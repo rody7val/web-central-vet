@@ -1,0 +1,74 @@
+extends ../layout.jade
+script.
+  window.$category = !{ JSON.stringify(category).replace(/<\//g, "<\\/") }
+
+block content
+  - const parseObj = (data) => { return JSON.stringify(data, undefined, 2).replace(/<\//g, "<\\/") }
+  #container-fluid.col-md-6
+    h3#modal-create.modal-title Editar Categoria 
+      span
+        code !{category.name}
+    form(onsubmit='editCategory(event)')
+      label Imagen
+      div.form-group(style="background-color: #ccc")
+        img#preview_category_edit.img-center
+        input.form-control(
+          onchange="onChangeImage(event, 'uploadValue_category_edit', 'urlImg_category_edit', 'preview_category_edit')"
+          type="file"
+          name="file"
+          placeholder="Elije o arrastra una imagen..."
+          drop-placeholder="Arrastra una imagen...")
+        small.text-muted#uploadValue_category_edit
+      input.form-group.form-control(
+        id="urlImg_category_edit"
+        type="text"
+        name="img"
+        placeholder="url img"
+        disabled)
+      label Descripcion
+      input.form-group.form-control(
+        id="name_category"
+        type="text"
+        name="name"
+        placeholder="nombre")
+      input#addSubmitCategory.btn.btn-info(type="submit",value="Guardar")
+  script.
+    document.getElementById("preview_category").setAttribute("src", !{parseObj(category.img || "")} )
+    document.getElementById("urlImg_category").setAttribute("src", !{parseObj(category.img || "")} )
+    document.getElementById("name_category").value = !{parseObj(category.name)}
+
+    const editCategory = (event) => {
+      event.preventDefault()
+      console.log(event)
+      // handle btn submit
+      document.getElementById("addSubmitCategory").value = "cargando..."
+      document.getElementById("addSubmitCategory").setAttribute("disabled", true)
+
+      let category = {
+        name: event.target.name.value,
+        img: event.target.img.value
+      }
+
+      fetch(`/api/categories/!{category._id}/edit`, {
+        method: 'POST',
+        body: JSON.stringify(category),
+        headers:{
+          'Content-Type': 'application/json'
+        }
+      })
+      .then(res => {
+        return res.json()
+      })
+      .then(res => {
+        if (res.success) {
+          alert("categoria editada!")
+          return window.location.replace("/")
+        }
+        alert("res", res)
+      })
+      .catch(err => {
+        alert("err", err)
+      })
+
+    }
+script(src="/js/items/all.js")

@@ -73,9 +73,15 @@ const addCategory = (event) => {
   // handle btn submit
   document.getElementById("addSubmitCategory").value = "cargando..."
   document.getElementById("addSubmitCategory").setAttribute("disabled", true)
+
+  let category = {
+    name: event.target.category.value,
+    img: event.target.img.value
+  }
+
   fetch('/api/categories', {
     method: 'POST',
-    body: JSON.stringify({ category: {name: event.target.category.value} }),
+    body: JSON.stringify({ category: category }),
     headers:{
       'Content-Type': 'application/json'
     }
@@ -91,7 +97,9 @@ const addCategory = (event) => {
       document.getElementById("addSubmitCategory").value = "Guardar"
       document.getElementById("addSubmitCategory").removeAttribute("disabled")
       alert("categoria creada!")
-      return getCategories()
+      window.location.reload()
+      return
+      //return getCategories()
     }
     alert("res", res)
   })
@@ -129,16 +137,8 @@ const addItem = (event) => {
   })
   .then(res => {
     if (res.success) {
-      // reset form values
-      event.target.reset()
-      // reset img preview and uploadValue
-      document.getElementById("preview").removeAttribute("src")
-      document.getElementById("uploadValue").innerHTML = ""
-      // reset btn submit
-      document.getElementById("addSubmit").value = "Guardar"
-      document.getElementById("addSubmit").removeAttribute("disabled")
       alert("producto creado!")
-      return getItems()
+      return window.location.reload()
     }
     alert("res", res)
   })
@@ -147,11 +147,11 @@ const addItem = (event) => {
   })
 }
 
-// delete item - POST
-const deleteItem = (title, id) => {
+// delete - POST
+const deleteByType = (title, type, id) => {
   let _title = title.toUpperCase()
   if (confirm(`Borrar ${_title} ?`)) {
-    fetch(`/api/items/${id}/delete`, {
+    fetch(`/api/${type}/${id}/delete`, {
       method: 'POST',
       headers:{
         'Content-Type': 'application/json'
@@ -162,7 +162,8 @@ const deleteItem = (title, id) => {
     })
     .then(res => {
       if (res.success) {
-        return getItems()
+        alert("Borrado!")
+        return window.location.reload()
       }
       alert(res)
     })
@@ -182,13 +183,10 @@ const renderItems = (data, id) => {
   `}
   let html = data.map((item, index) => {
     return(`
-      <li class="list-group-item shadow mp0">
-        <div class="container">
-          <div class="row mp0">
-            <div class="col-4 col-md-3 mp0">
-              <a href="/items/${item._id}">
-                <img class="img-fluid img-center img-list" src="${item.img}"/>
+              <a href="/items/${item._id}" class="card">
+                <img class="card-img-top" src="${item.img ? item.img : 'https://placekitten.com/300/200'}"/>
               </a>
+
             </div>
             <div class="col-8 col-md-9 mp0">
               <a href="/items/${item._id}">
@@ -230,27 +228,27 @@ const renderCategories = (data, className) => {
   `
 }
 
-const onChangeImage = (event) => {
+const onChangeImage = (event, uploadValue, urlImg, preview ) => {
   const file = event.target.files[0]
   const task = firebase
     .storage()
     .ref(`img/${file.name + Date.now()}`)
     .put(file)
-
   task.on('state_changed', (snapshot) => {
     let value = (snapshot.bytesTransferred / snapshot.totalBytes) * 100
     console.log(snapshot)
-    document.getElementById("uploadValue").innerHTML = `${value}%`
+    document.getElementById(uploadValue).innerHTML = `${value}%`
   }, (error) => {
     console.error(error.message)
   }, () => {
-    task.snapshot.ref.getDownloadURL().then((img) => {
-      document.getElementById("urlImg").value = img
-      document.getElementById("preview").setAttribute("src", img)
+    task.snapshot.ref.getDownloadURL().then(img => {
+      console.log(img)
+      document.getElementById(urlImg).value = img
+      document.getElementById(preview).setAttribute("src", img)
     })
   })
 }
 
 // init
-getItems()
-getCategories()
+//getItems()
+//getCategories()

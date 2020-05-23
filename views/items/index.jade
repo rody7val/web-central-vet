@@ -1,32 +1,52 @@
-- const isAdmin = (email) => { if (email === "rod7val@gmail.com") { return true } return false }
 //- index.jade
 extends ../layout.jade
 
 block content
-  //- dinamic vars
-  script.
-    window.$user = !{JSON.stringify(session && session.user ? session.user : null).replace(/<\//g, "<\\/")}
-  section#breadcrumb.container
-    nav(aria-label="breadcrumb")
-      ol(class="breadcrumb")
-        li.breadcrumb-item
-          a(href="/") Inicio
-        li.breadcrumb-item.active(aria-current="page") Productos
-  section#main.items.container
-    form.form-inline
-      input.form-group.form-control.form-control-sm.mb-2.mr-2(
-        oninput="getItemsSearch(event, this.name)"
-        type="text"
-        name="filter_title"
-        placeholder="Buscar"
-        required)
-      .categories(style="display: none")
-      if (session && session.user) ? session.user.email === "rod7val@gmail.com" : null
-        small
-          button.btn.btn-primary.btn-sm.mb-3(
-          data-toggle="modal"
-          data-target="#addItem") Crear Producto
-    include ./createItem.jade
-    include ./createCategory.jade
-    ul#items.list-group cargando...
-  script(src="/js/items/all.js")
+  - var index = _categories.map(category => {return String(category._id)}).indexOf(session.query.category)
+  #container-fluid
+    h3.mb-4 !{session.query && session.query.category ? _categories[index].name.toUpperCase() : "Comprar" }
+      button#new_item.btn.btn-info.btn-sm.d-inline-block.action-admin.ml-2(
+        data-toggle="modal"
+        data-target="#addItem"
+        title="Nuevo Producto"
+      )
+        i.fa.fa-plus
+    //- filter category
+    form.form-inline(action="/items")
+      select.form-control.form-input.mr-2(
+        name="category"
+        onchange="this.form.submit()"
+      )
+        option(value="",disabled,selected) Categoría de productos...
+        each category, index in _categories
+          if String(session.query.category) === String(_categories[index]._id)
+            option(selected
+              value=`${category._id}`) !{category.name}
+          else 
+            option(
+              value=`${category._id}`) !{category.name}
+    //-tags
+    small 
+      p 
+        if index >= 0
+          span.badge.btn-info.mt-2.mr-2 !{_categories[index].name}
+        small !{(items.length) + " resultado" + (items.length >1 ? "s" : "")} 
+    //-pre !{index}
+    #items.card-columns.mt-4
+      each item in items && items.length ? items : [] 
+        div
+          //- btn delete
+          span.badge-admin-item.badge.badge-danger(
+            onclick=`deleteByType("${item.title}", "items", "${item._id}")`
+          ) borrar
+          //- btn edit
+          span.badge-admin-item.badge.badge-info(style="margin-left: 50px; display: none")
+            a(href=`${"/items/"+item._id+"/edit"}`) editar
+          a(href=`/items/${item._id}`).card
+            if item.img
+              img.card-img-top(src=`${item.img}`, alt=`${item.title}`)
+            else
+              img.card-img-top(src="https://placekitten.com/300/200", alt=`${item.title}`)
+            .card-body
+              h5.card-title $ !{item.price}
+              .card-text !{item.title}

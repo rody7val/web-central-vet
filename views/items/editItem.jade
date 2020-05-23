@@ -1,0 +1,90 @@
+extends ../layout.jade
+script.
+  window.$item = !{ JSON.stringify(item).replace(/<\//g, "<\\/") }
+
+block content
+  - const parseObj = (data) => { return JSON.stringify(data, undefined, 2).replace(/<\//g, "<\\/") }
+  #container-fluid
+    h3#modal-create.modal-title Editar Categoria 
+      span
+        code !{item.name}
+    form(onsubmit='edititem(event)')
+      label Imagen
+      div.form-group(style="background-color: #ccc")
+        img#preview_item_edit.img-center
+        input.form-control(
+          onchange="onChangeImage(event, 'uploadValue_item_edit', 'urlImg_item_edit', 'preview_item_edit')"
+          type="file"
+          name="file"
+          placeholder="Elije o arrastra una imagen..."
+          drop-placeholder="Arrastra una imagen...")
+        small.text-muted#uploadValue_item_edit
+      input.form-group.form-control(
+        id="urlImg_item_edit"
+        type="text"
+        name="img"
+        placeholder="url img"
+        disabled)
+      label Detalles
+      input.form-group.form-control(
+        type="text"
+        name="title"
+        placeholder="Nombre del producto"
+        required)
+      input.form-group.form-control(
+        type="text"
+        name="desc"
+        placeholder="Descripcion"
+        required)
+      input.form-group.form-control(
+        type="number"
+        name="price"
+        placeholder="Precio de venta"
+        step="0.05"
+        required)
+      input.form-group.form-control(
+        type="number"
+        name="qty"
+        placeholder="Cantidad en stock"
+        required)
+      input#addSubmit.btn.btn-primary(type="submit",value="Guardar")
+  script.
+    document.getElementById("preview_item").setAttribute("src", !{parseObj(item.img || "")} )
+    document.getElementById("urlImg_item").setAttribute("src", !{parseObj(item.img || "")} )
+    document.getElementById("name_item").value = !{parseObj(item.name)}
+
+    const editItem = (event) => {
+      event.preventDefault()
+      console.log(event)
+      // handle btn submit
+      document.getElementById("addSubmitItem").value = "cargando..."
+      document.getElementById("addSubmitItem").setAttribute("disabled", true)
+
+      let item = {
+        name: event.target.name.value,
+        img: event.target.img.value
+      }
+
+      fetch(`/api/categories/!{item._id}/edit`, {
+        method: 'POST',
+        body: JSON.stringify(item),
+        headers:{
+          'Content-Type': 'application/json'
+        }
+      })
+      .then(res => {
+        return res.json()
+      })
+      .then(res => {
+        if (res.success) {
+          alert("categoria editada!")
+          return window.location.replace("/")
+        }
+        alert("res", res)
+      })
+      .catch(err => {
+        alert("err", err)
+      })
+
+    }
+script(src="/js/items/all.js")

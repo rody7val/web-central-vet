@@ -2,18 +2,18 @@ div#cart.modal.fade(aria-hidden="true")
   div.modal-dialog.modal-lg
     div.modal-content
       div.modal-header
-        h4.modal-title Carro &nbsp;
+        h4.modal-title.text Carrito &nbsp;
         button.close(
           type="button"
           data-dismiss="modal"
           aria-label="Close")
           span(aria-hidden="true") &times;
       div.modal-body
-        #cart_items Vacío...
-        h3.text-right Total: &nbsp;
+        #cart_items &nbsp; Vacío...
+        h3.text-right.mr-2 Total: &nbsp;
           b $
             span#cart_total
       class.modal-footer
-        button#cart_clear.btn.btn-danger.btn-sm(onclick=`deleteCart()`) Vaciar Carro
+        button#cart_clear.btn.btn-danger.btn-sm(onclick=`deleteCart()`) Vaciar
         button.btn.btn-secondary.btn-sm(data-dismiss="modal") Cerrar
         input#checkoutCartBtn.btn.btn-vete.btn-sm(type="submit",value="Comprar ahora",onclick="checkoutCart(event)")

@@ -156,10 +156,10 @@ const renderCart = () => {
   }).join(" ")
 
   document.getElementById("cart_items").innerHTML = cartItems.length ? `
-    <table class="table table-sm shadow">
+    <table class="table table-sm">
       ${head + body}
     </table>
-  ` : "Vacío..."
+  ` : "&nbsp; Vacío..."
   document.getElementById("cart_total").innerHTML = shoppingCart.totalCart()
   document.getElementById("cart_count").innerHTML = shoppingCart.lengthCart()
 }

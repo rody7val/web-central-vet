@@ -4,25 +4,14 @@ block content
   //- dinamic vars
   script.
     window.$item = !{JSON.stringify(item).replace(/<\//g, "<\\/")}
-  //- breadcrumbs
-  section#breadcrumb.container
-    nav(aria-label="breadcrumb")
-      ol(class="breadcrumb")
-        li.breadcrumb-item
-          a(href="/") Inicio
-        li.breadcrumb-item
-          a(href="/items") Productos
-        li.breadcrumb-item.active(aria-current="page") !{item.title}
   //- contents
   section#main.container
     .card.shadow.mb-4
-      .row.mp0
-        .col-md-6.mp0
-          img.img-center.img-view.card-img-top(src=`${item.img}`)
-        .col-md-6.mp0
+      .row
+        .col-md-6
           div.card-body
-            h5.card-title.title-view !{item.title}
-            p.lead.price-view $ !{item.price}
+            h5.card-title !{item.title}
+            h1.lead-vete $ !{item.price}
             form(onsubmit=`checkout(event, window.$item)`)
               .form-group
                 .input-group
@@ -35,7 +24,7 @@ block content
                     value="1"
                     max=`${item.qty}`)
                 small.text-muted.text-right(style="display: inherit") (!{item.qty} disponibles)
-              input#checkoutBtn.btn.btn-vete.btn-sm.mr-2(
+              input#checkoutBtn.btn.btn-vete.btn-sm.btn-block.mr-2(
                 type="submit"
                 value="Comprar ahora")
             form(onsubmit=`addToCart(event, window.$item)`)
@@ -44,10 +33,12 @@ block content
                 name="cart_qty"
                 value="1"
                 max=`${item.qty}`)
-              button#addToCartBtn.btn.btn-warning.btn-sm.mt-2(
+              button#addToCartBtn.btn.btn-info.btn-sm.btn-block.mt-2(
                 type="submit") Agregar al carrito
-            img(src="/img/MP-payButton-logos.png")
+            img.img-center.mt-3(src="/img/MP-payButton-logos.png")
             hr
             p.lead Descripción:
             p !{item.desc}
+        .col-md-6
+          img.img-center.img-view.card-img-bottom(src=`${item.img}`)
   script(src="/js/items/one.js")

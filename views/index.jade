@@ -6,42 +6,58 @@ block content
     .row
       .col-sm-12.col-md-6
         h2 Clínica Veterinaria de Pequeños Animales
-        p.text-justify Lorem ipsum dolor sit amet, consectetur adipisicing elit, sed do eiusmod tempor incididunt ut labore et dolore magna aliqua. Ut enim ad minim veniam, quis nostrud exercitation ullamco laboris nisi ut aliquip ex ea commodo consequat. Duis aute irure dolor in reprehenderit in voluptate velit esse cillum dolore eu fugiat nulla pariatur. Excepteur sint occaecat cupidatat non proident, sunt in culpa qui officia deserunt mollit anim id est laborum.
+        p Lorem ipsum dolor sit amet, consectetur adipisicing elit, sed do eiusmod tempor incididunt ut labore et dolore magna aliqua. Ut enim ad minim veniam, quis nostrud exercitation ullamco laboris nisi ut aliquip ex ea commodo consequat. Duis aute irure dolor in reprehenderit in voluptate velit esse cillum dolore eu fugiat nulla pariatur. Excepteur sint occaecat cupidatat non proident, sunt in culpa qui officia deserunt mollit anim id est laborum.
       .col-sm-12.col-md-6
         img.img-fluid.img-center.shadow(src="/img/entrada.jpeg")
-    //- categories
-    h3.mt-5 Comprar
-    .row.mt-5
-      .col-md-4
-        a.card.category.mb-3(href="#")
-          img.card-img-top(src="/img/category_food-1.jpg")
-          .cardbody
-            h5.text-center.card-title.mt-4 Alimento
-      .col-md-4
-        a.card.category.mb-3(href="#")
-          img.card-img-top(src="/img/category_drugs-2.jpg")
-          .cardbody
-            h5.text-center.card-title.mt-4 Farmacia
-      .col-md-4
-        a.card.category.mb-3(href="#")
-          img.card-img-top(src="/img/category_accesories-3.jpg")
-          .cardbody
-            h5.text-center.card-title.mt-4 Accesorios
+    //- _categories
+    h3.mt-5.mb-2 Tienda
+      span.btn.btn-info.btn-sm.action-admin.ml-2.mb-2(
+        data-toggle="modal"
+        data-target="#addCategory"
+        title="Nueva Categoría"
+      )
+        i.fa.fa-plus
+    .card-columns
+      each category, index in _categories && _categories.length ? _categories : [""]
+        div
+          //- btn delete
+          span.badge-admin-item.badge.badge-danger(
+            onclick=`deleteByType("${category.name}", "categories", "${category._id}")`
+          ) borrar
+          //- btn edit
+          span.badge-admin-item.badge.badge-info(style="margin-left: 50px;") 
+            a(href=`${"/categories/"+category._id+"/edit"}`) editar
+          //- card category
+          a.card.category(href=`/items?category=${category._id}`)
+            img.card-img-top(src=`${category.img || "https://placekitten.com/1000/300"}`)
+            .cardbody
+              h5.text-center.card-title.mt-4(style="text-decoration: underline") !{category.name}
     //- services
-    h3.mt-5 Servicios
-    .row.mt-5
-      .col-md-4
-        a.card.category.mb-3(href="#")
-          img.card-img-top(src="https://img.freepik.com/foto-gratis/veterinario-que-comprueba-perro-estetoscopio-tabla-clinica-veterinario_23-2147928421.jpg?size=626&ext=jpg")
-          .cardbody
-            h5.text-center.card-title.mt-4 Clínica
-      .col-md-4
-        a.card.category.mb-3(href="#")
-          img.card-img-top(src="https://img.freepik.com/foto-gratis/equipo-cirujanos-que-trabajan-supervision-paciente-sala-operaciones-quirurgica_50889-74.jpg?size=626&ext=jpg")
-          .cardbody
-            h5.text-center.card-title.mt-4 Cirugía
-      .col-md-4
-        a.card.category.mb-3(href="#")
-          img.card-img-top(src="https://www.petcuaria.com/media/zoo/images/Los_veterinarios_de_Espana_luchan_porque_la_vacuna_antirrabica_sea_obligatoria_en_el_pais_3e7f606d0ca5d3373196627fdc3d27b4.jpg")
-          .cardbody
-            h5.text-center.card-title.mt-4 Vacunación
+    h3.mt-5.mb-2 Servicios
+    #carouselExampleControls.carousel.slide(data-ride="carousel")
+      .carousel-inner
+        each slide, index in services
+          if index == 0
+            .carousel-item.active
+              img.d-block.w-100(src=`${slide.img}`, alt=`${slide.title}`)
+          else
+            .carousel-item
+              img.d-block.w-100(src=`${slide.img}`, alt=`${slide.title}`)
+      a.carousel-control-prev(
+        href="#carouselExampleControls"
+        role="button"
+        data-slide="prev")
+        span.carousel-control-prev-icon(aria-hidden="true")
+        span.sr-only Previous
+      a.carousel-control-next(
+        href="#carouselExampleControls"
+        role="button"
+        data-slide="next")
+        span.carousel-control-next-icon(aria-hidden="true")
+        span.sr-only Next
+
+
+
+//-(src="https://img.freepik.com/foto-gratis/veterinario-que-comprueba-perro-estetoscopio-tabla-clinica-veterinario_23-2147928421.jpg?size=626&ext=jpg")
+//-(src="https://img.freepik.com/foto-gratis/equipo-cirujanos-que-trabajan-supervision-paciente-sala-operaciones-quirurgica_50889-74.jpg?size=626&ext=jpg")
+//-(src="https://www.petcuaria.com/media/zoo/images/Los_veterinarios_de_Espana_luchan_porque_la_vacuna_antirrabica_sea_obligatoria_en_el_pais_3e7f606d0ca5d3373196627fdc3d27b4.jpg")

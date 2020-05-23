@@ -10,10 +10,13 @@ module.exports = express => {
 
   // load
   router.param('itemId', items.load)
+  router.param('categoryId', categories.load)
 
   // categories
   router.get('/categories', categories.all)
   router.post('/categories', categories.add)
+  router.post('/categories/:categoryId/delete', categories.delete);
+  router.post('/categories/:categoryId/edit', categories.edit);
 
   // items
   router.get('/items', items.all)
