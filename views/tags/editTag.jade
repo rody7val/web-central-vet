@@ -1,0 +1,90 @@
+extends ../layout.jade
+script.
+  window.$tag = !{ JSON.stringify(tag).replace(/<\//g, "<\\/") }
+
+block content
+  - const parseObj = (data) => { return JSON.stringify(data, undefined, 2).replace(/<\//g, "<\\/") }
+  #container-fluid.col-md-6
+    h3#modal-create.modal-title Editar Marca 
+      span
+        code !{tag.name}
+    form(onsubmit='editTag(event)')
+      label Imagen
+      div.form-group(style="background-color: #ccc")
+        img#preview_tag_edit.img-center
+        input.form-control(
+          onchange="onChangeImage(event, 'uploadValue_tag_edit', 'urlImg_tag_edit', 'preview_tag_edit')"
+          type="file"
+          name="file"
+          placeholder="Elije o arrastra una imagen..."
+          drop-placeholder="Arrastra una imagen...")
+        small.text-muted#uploadValue_tag_edit
+      input.form-group.form-control(
+        id="urlImg_tag_edit"
+        type="text"
+        name="img"
+        placeholder="url img"
+        disabled)
+      label Categoria
+      select.form-group.form-control.form-input.mr-2(
+        name="category"
+      )
+        each category, index in _categories
+          if category._id == String(tag.category)
+            option(value=`${category._id}`, selected) !{category.name}
+          else
+            option(value=`${category._id}`) !{category.name}
+      label Nombre
+      input.form-group.form-control(
+        id="name_tag_edit"
+        type="text"
+        name="name"
+        placeholder="nombre")
+      input#addSubmitTag.btn.btn-info(type="submit",value="Guardar")
+  //-script
+  script.
+    document.
+      getElementById("preview_tag_edit").
+      setAttribute("src", !{parseObj(tag.img || "")} )
+    document.
+      getElementById("urlImg_tag_edit").
+      value = !{parseObj(tag.img)}
+     document.
+      getElementById("name_tag_edit").
+      value = !{parseObj(tag.name)}
+
+    const editTag = (event) => {
+      event.preventDefault()
+      console.log(event)
+      // handle btn submit
+      document.getElementById("addSubmitTag").value = "cargando..."
+      document.getElementById("addSubmitTag").setAttribute("disabled", true)
+
+      let tag = {
+        name: event.target.name.value,
+        img: event.target.img.value,
+        category: event.target.category.value
+      }
+
+      fetch(`/api/tags/!{tag._id}/edit`, {
+        method: 'POST',
+        body: JSON.stringify(tag),
+        headers:{
+          'Content-Type': 'application/json'
+        }
+      })
+      .then(res => {
+        return res.json()
+      })
+      .then(res => {
+        if (res.success) {
+          alert("marca editada!")
+          return window.location.replace("/")
+        }
+        alert("res", res)
+      })
+      .catch(err => {
+        alert("err", err)
+      })
+
+    }

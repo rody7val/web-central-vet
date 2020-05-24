@@ -31,7 +31,29 @@ block content
           a.card.category(href=`/items?category=${category._id}`)
             img.card-img-top(src=`${category.img || "https://placekitten.com/1000/300"}`)
             .cardbody
-              h5.text-center.card-title.mt-4(style="text-decoration: underline") !{category.name}
+              h5.text-center.card-title.mt-4 !{category.name}
+    //- _tags
+    h3.mt-5.mb-2 Marcas
+      span.btn.btn-info.btn-sm.action-admin.ml-2.mb-2(
+        data-toggle="modal"
+        data-target="#addTag"
+        title="Nueva Marca"
+      )
+        i.fa.fa-plus
+    .container-fluid
+      .row
+        each tag, index in _tags && _tags.length ? _tags : [""]
+          .col-md-2.col-sm-3.col-6
+            //- btn delete
+            span.badge-admin-item.badge.badge-danger(
+              onclick=`deleteByType("${tag.name}", "tags", "${tag._id}")`
+            ) borrar
+            //- btn edit
+            span.badge-admin-item.badge.badge-info(style="margin-left: 50px;") 
+              a(href=`${"/tags/"+tag._id+"/edit"}`) editar
+            //- card tag
+            a.card.tag(href=`/items?tag=${tag._id}`, title=`${tag.name}`)
+              img.card-img-top(src=`${tag.img || "https://placekitten.com/1000/300"}`)
     //- services
     h3.mt-5.mb-2 Servicios
     #carouselExampleControls.carousel.slide(data-ride="carousel")

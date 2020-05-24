@@ -128,7 +128,7 @@ const renderCart = () => {
 
   let head = `
   <thead>
-    <tr class="bg-warning">
+    <tr class="bg-info" style="color: #efefef;">
       <th scope="col">Producto</th>
       <th class="text-right" scope="col">Precio</th>
       <th class="text-center" scope="col">Cantidad</th>

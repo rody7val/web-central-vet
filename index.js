@@ -6,7 +6,9 @@ const cookieParser = require('cookie-parser')
 const bodyParser = require('body-parser')
 const mercadopago = require('mercadopago')
 const session = require('express-session')
+// controllers
 const Categories = require('./controllers/categoriesController')
+const Tags = require('./controllers/tagsController')
 // Create Express Application
 const app = express()
 const api = require('./routes/api')(express);
@@ -32,18 +34,20 @@ app.use(express.static(__dirname + '/public'));
 // Session helpers
 app.use((req, res, next) => {
   Categories.getAll((err, categories) => {
-    //routes
-    req.session.path = req.path
-    req.session.query = req.query
-    console.log(req.query)
-    //auth
-    res.locals.session = req.session;
-    //vars
-    res.locals.heads = config.heads;
-    res.locals.services = config.services;
-    //items and categories
-    res.locals._categories = categories
-    next();
+    Tags.getAll((err, tags) => {
+      //routes
+      req.session.path = req.path
+      req.session.query = req.query
+      //auth
+      res.locals.session = req.session;
+      //vars
+      res.locals.heads = config.heads;
+      res.locals.services = config.services;
+      //items and categories
+      res.locals._categories = categories
+      res.locals._tags = tags
+      next();
+    })
   })
 
 });

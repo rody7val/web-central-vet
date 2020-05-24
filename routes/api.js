@@ -1,5 +1,6 @@
 // Controllers
 const categories = require('../controllers/categoriesController')
+const tags = require('../controllers/tagsController')
 const items = require('../controllers/itemsController')
 const auth = require('../controllers/authController')
 const mp = require('../controllers/mpController')
@@ -9,8 +10,9 @@ module.exports = express => {
   const router = express.Router()
 
   // load
-  router.param('itemId', items.load)
   router.param('categoryId', categories.load)
+  router.param('tagId', tags.load)
+  router.param('itemId', items.load)
 
   // categories
   router.get('/categories', categories.all)
@@ -18,11 +20,18 @@ module.exports = express => {
   router.post('/categories/:categoryId/delete', categories.delete);
   router.post('/categories/:categoryId/edit', categories.edit);
 
+  // tags
+  router.get('/tags', tags.all)
+  router.post('/tags', tags.add)
+  router.post('/tags/:tagId/delete', tags.delete);
+  router.post('/tags/:tagId/edit', tags.edit);
+
   // items
   router.get('/items', items.all)
   router.post('/items', items.add)
   router.post('/items/search', items.search)
   router.post('/items/:itemId/delete', items.delete);
+  router.post('/items/:itemId/edit', items.edit);
 
   // checkout
   router.post('/checkout', mp.create)

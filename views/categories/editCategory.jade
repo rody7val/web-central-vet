@@ -27,15 +27,22 @@ block content
         disabled)
       label Descripcion
       input.form-group.form-control(
-        id="name_category"
+        id="name_category_edit"
         type="text"
         name="name"
         placeholder="nombre")
       input#addSubmitCategory.btn.btn-info(type="submit",value="Guardar")
+  //-script
   script.
-    document.getElementById("preview_category").setAttribute("src", !{parseObj(category.img || "")} )
-    document.getElementById("urlImg_category").setAttribute("src", !{parseObj(category.img || "")} )
-    document.getElementById("name_category").value = !{parseObj(category.name)}
+    document.
+      getElementById("preview_category_edit").
+      setAttribute("src", !{parseObj(category.img || "")} )
+    document.
+      getElementById("urlImg_category_edit").
+      value = !{parseObj(category.img)}
+     document.
+      getElementById("name_category_edit").
+      value = !{parseObj(category.name)}
 
     const editCategory = (event) => {
       event.preventDefault()
@@ -71,4 +78,3 @@ block content
       })
 
     }
-script(src="/js/items/all.js")

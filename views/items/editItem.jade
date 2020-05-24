@@ -4,15 +4,15 @@ script.
 
 block content
   - const parseObj = (data) => { return JSON.stringify(data, undefined, 2).replace(/<\//g, "<\\/") }
-  #container-fluid
-    h3#modal-create.modal-title Editar Categoria 
+  #container-fluid.col-md-6
+    h3#modal-create.modal-title Editar Producto 
       span
-        code !{item.name}
-    form(onsubmit='edititem(event)')
+        code !{item.title}
+    form(onsubmit='editItem(event)')
       label Imagen
       div.form-group(style="background-color: #ccc")
         img#preview_item_edit.img-center
-        input.form-control(
+        input.form-co_editntrol(
           onchange="onChangeImage(event, 'uploadValue_item_edit', 'urlImg_item_edit', 'preview_item_edit')"
           type="file"
           name="file"
@@ -27,45 +27,54 @@ block content
         disabled)
       label Detalles
       input.form-group.form-control(
+        id="title_item_edit"
         type="text"
         name="title"
         placeholder="Nombre del producto"
         required)
       input.form-group.form-control(
+        id="desc_item_edit"
         type="text"
         name="desc"
         placeholder="Descripcion"
         required)
       input.form-group.form-control(
+        id="price_item_edit"
         type="number"
         name="price"
         placeholder="Precio de venta"
         step="0.05"
         required)
       input.form-group.form-control(
+        id="qty_item_edit"
         type="number"
         name="qty"
         placeholder="Cantidad en stock"
         required)
-      input#addSubmit.btn.btn-primary(type="submit",value="Guardar")
+      input#addSubmit_edit.btn.btn-primary(type="submit",value="Guardar")
   script.
-    document.getElementById("preview_item").setAttribute("src", !{parseObj(item.img || "")} )
-    document.getElementById("urlImg_item").setAttribute("src", !{parseObj(item.img || "")} )
-    document.getElementById("name_item").value = !{parseObj(item.name)}
+    document.getElementById("preview_item_edit").setAttribute("src", !{parseObj(item.img || "")} )
+    document.getElementById("urlImg_item_edit").value = !{parseObj(item.img || "")} 
+    document.getElementById("title_item_edit").value = !{parseObj(item.title)}
+    document.getElementById("desc_item_edit").value = !{parseObj(item.desc)}
+    document.getElementById("price_item_edit").value = !{parseObj(item.price)}
+    document.getElementById("qty_item_edit").value = !{parseObj(item.qty)}
 
     const editItem = (event) => {
       event.preventDefault()
-      console.log(event)
       // handle btn submit
-      document.getElementById("addSubmitItem").value = "cargando..."
-      document.getElementById("addSubmitItem").setAttribute("disabled", true)
+      document.getElementById("addSubmit_edit").value = "cargando..."
+      document.getElementById("addSubmit_edit").setAttribute("disabled", true)
 
       let item = {
-        name: event.target.name.value,
-        img: event.target.img.value
+        img: event.target.img.value,
+        title: event.target.title.value,
+        desc: event.target.desc.value,
+        price: Number(event.target.price.value),
+        qty: Number(event.target.qty.value)
       }
 
-      fetch(`/api/categories/!{item._id}/edit`, {
+      fetch(`/api/items/!{item._id}/edit`, {
         method: 'POST',
         body: JSON.stringify(item),
         headers:{
@@ -77,7 +86,7 @@ block content
       })
       .then(res => {
         if (res.success) {
-          alert("categoria editada!")
+          alert("Producto editado!")
           return window.location.replace("/")
         }
         alert("res", res)
@@ -87,4 +96,3 @@ block content
       })
 
     }
-script(src="/js/items/all.js")

@@ -88,3 +88,21 @@ exports.search = (req, res) => {
     })
   })
 }
+
+exports.edit = (req, res, next) => {
+  Item.
+  findOne({_id: req.item._id}).
+  populate("category").
+  exec((err, item) => {
+    if (err) {
+      return res.json({success: false, err: err})
+    }
+    item.img = req.body.img
+    item.title = req.body.title
+    item.desc = req.body.desc
+    item.price = Number(req.body.price)
+    item.qty = Number(req.body.qty)
+    item.save()
+    res.json({success: true})
+  })
+}

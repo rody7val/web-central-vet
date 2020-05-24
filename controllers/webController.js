@@ -44,6 +44,15 @@ exports.editCategory = (req, res) => {
   })
 }
 
+
+// tags
+exports.editTag = (req, res) => {
+  res.render('tags/editTag', {
+    tag: req.tag
+  })
+}
+
+
 // services
 exports.clinic = (req, res) => {
   res.render('services/clinic')

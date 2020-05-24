@@ -1,5 +1,5 @@
 // Dynamic Managed API
-
+console.log("a")
 // get items - GET
 const getCategories = () => {
   document.getElementsByClassName("categories")[0].innerHTML = 'cargando...'

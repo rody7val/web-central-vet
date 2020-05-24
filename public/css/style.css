@@ -69,6 +69,9 @@ a, a:hover, a:focus {
 .card{
     transition: all 0.3s;
 }
+.card:hover{
+    border: 1px solid #7952b3;
+}
 
 #content.active {
     width: calc(100% - 250px);
@@ -255,6 +258,15 @@ hr{
     object-fit: cover;
 }
 
+.card_items{
+    max-width: 100%;
+}
+
+.card.tag{
+  border: 0px;
+  background-color: transparent;
+}
+
 #cart .modal-body{
     padding: 0px;
 }
@@ -264,7 +276,7 @@ hr{
     padding-right: 30px;
 }
 
-#preview, #preview_category, #preview_category_edit{
+#preview, #preview_category, #preview_category_edit, #preview_item_edit, #preview_tag, #preview_tag_edit{
     width: 100px
 }
 
@@ -274,7 +286,15 @@ hr{
     z-index: 2;
 }
 
+@media (min-width: 576px){
+.card_items {
+    max-width: 255px;
+}
+
 @media (max-width: 768px) {
+    .card_items{
+        max-width: 100%;
+    }
     #container-fluid{
         padding-left: 15px;
         padding-right: 15px;

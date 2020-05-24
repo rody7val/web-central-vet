@@ -40,9 +40,9 @@ block content
             onclick=`deleteByType("${item.title}", "items", "${item._id}")`
           ) borrar
           //- btn edit
-          span.badge-admin-item.badge.badge-info(style="margin-left: 50px; display: none")
+          span.badge-admin-item.badge.badge-info(style="margin-left: 50px;")
             a(href=`${"/items/"+item._id+"/edit"}`) editar
-          a(href=`/items/${item._id}`).card
+          a.card.card_items(href=`/items/${item._id}`)
             if item.img
               img.card-img-top(src=`${item.img}`, alt=`${item.title}`)
             else
