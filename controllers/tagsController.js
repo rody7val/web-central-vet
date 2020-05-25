@@ -51,7 +51,7 @@ exports.all = (req, res) => {
 
 exports.add = (req, res) => {
   let tag = new Tag(req.body.tag)
-
+console.log(req.body.tag)
   tag.save(err => {
     if (err) {
       return res.json({success: false, err: err})

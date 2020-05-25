@@ -29,3 +29,44 @@ div#addCategory.modal.fade(tabindex="-1",role="dialog",aria-labelledby="modal-cr
             name="category"
             placeholder="nombre")
           input#addSubmitCategory.btn.btn-info(type="submit",value="Guardar")
+script.
+  // add category - POST
+  const addCategory = (event) => {
+    event.preventDefault()
+    // handle btn submit
+    document.getElementById("addSubmitCategory").value = "cargando..."
+    document.getElementById("addSubmitCategory").setAttribute("disabled", true)
+
+    let category = {
+      name: event.target.category.value,
+      img: event.target.img.value
+    }
+
+    fetch('/api/categories', {
+      method: 'POST',
+      body: JSON.stringify({ category: category }),
+      headers:{
+        'Content-Type': 'application/json'
+      }
+    })
+    .then(res => {
+      return res.json()
+    })
+    .then(res => {
+      if (res.success) {
+        // reset form values
+        event.target.reset()
+        // reset btn submit
+        document.getElementById("addSubmitCategory").value = "Guardar"
+        document.getElementById("addSubmitCategory").removeAttribute("disabled")
+        alert("categoria creada!")
+        window.location.reload()
+        return
+        //return getCategories()
+      }
+      alert("res", res)
+    })
+    .catch(err => {
+      alert("err", err)
+    })
+  }

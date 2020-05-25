@@ -13,7 +13,7 @@ block content
       label Categoria
       select.form-group.form-control.form-input.mr-2(
         name="category"
-      )
+        required)
         option(disabled, selected) Seleccione...
         each category, index in _categories
           option(value=`${category._id}`) !{category.name}
@@ -21,7 +21,7 @@ block content
       label Marca
       select.form-group.form-control.form-input.mr-2(
         name="tag"
-      )
+        required)
         option(disabled, selected) Seleccione...
         each tag, index in _tags
           option(value=`${tag._id}`) !{tag.name}

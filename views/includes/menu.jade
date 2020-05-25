@@ -1,12 +1,76 @@
 nav.navbar.fixed-top.navbar-expand-lg.navbar-light.bg-light
   .container-fluid
+    //- collapse btn
     button#sidebarCollapse.btn.btn-vete.btn-sm
       i.fa.fa-align-left.mr-1
       span Menu
+    div
       //- cart menu
       button.btn.btn-info.btn-sm.ml-2(title="Carrito",data-toggle="modal",data-target="#cart")
         i.fa.fa-shopping-cart.mr-1
         span#cart_count 0
+      //- auth
+      if !session.user
+        button.btn.btn-outline-secondary.btn-sm.ml-2(onclick="_googleAuth()")
+          i.fa.fa-user.mr-1 
+          span ACCEDER
+      else
+        .dropdown.ml-2(style="display: inline-block")
+          button.btn.btn-info.btn-sm.dropdown-toggle(
+            type="button"
+            id="auth-user"
+            data-toggle="dropdown"
+            aria-haspopup="true"
+            aria-expanded="false")
+            img.mr-2(
+              src=`${session.user.photoURL}`
+              alt="user-image"
+              style="border-radius: 50%"
+              width="20px")
+          .dropdown-menu.dropdown-menu-right(aria-labelledby="auth-user")
+            a.dropdown-item(onclick="_googleOut()", style="cursor: pointer") Salir
+script.
+  const _googleAuth = () => {
+    const provider = new firebase.auth.GoogleAuthProvider()
+    firebase.auth().signInWithPopup(provider).then(result => {
+      fetch('/api/auth', {
+        method: 'POST',
+        body: JSON.stringify({user: result.user}),
+        headers:{
+          'Content-Type': 'application/json'
+        }
+      }).then(res => {return res.json()})
+      .then(res => {
+        if (res.success) {
+          window.location.reload(true)
+        }else{
+          alert("Error")
+        }
+      }).catch(err => {alert("err", err)})
+    }).catch(error => {alert(error)})
+  }
+
+  const _googleOut = () => {
+  firebase.auth().signOut().then(result => {
+      fetch('/api/auth/out', {
+        method: 'POST',
+        body: JSON.stringify({signOut: true}),
+        headers:{
+          'Content-Type': 'application/json'
+        }
+      }).then(res => {return res.json()})
+      .then(res => {
+        if (res.success) {
+          window.location.reload(true)
+        }else{
+          alert("Error")
+        }
+      }).catch(err => {alert("err", err)})
+    }).catch(error => {
+      alert(error)
+    })
+  }
+
 //- modals
 include ../items/createItem.jade
 include ../categories/createCategory.jade

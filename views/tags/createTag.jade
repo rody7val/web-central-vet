@@ -15,7 +15,8 @@ div#addTag.modal.fade(tabindex="-1",role="dialog",aria-labelledby="modal-create"
               type="file"
               name="file"
               placeholder="Elije o arrastra una imagen..."
-              drop-placeholder="Arrastra una imagen...")
+              drop-placeholder="Arrastra una imagen..."
+              required)
             small.text-muted#uploadValue_tag
           input.form-group.form-control(
             id="urlImg_tag"
@@ -26,7 +27,7 @@ div#addTag.modal.fade(tabindex="-1",role="dialog",aria-labelledby="modal-create"
           label Categoria
           select.form-group.form-control.form-input.mr-2(
             name="category"
-          )
+            required)
             option(disabled, selected) Seleccione...
             each category, index in _categories
               option(value=`${category._id}`) !{category.name}
@@ -34,7 +35,8 @@ div#addTag.modal.fade(tabindex="-1",role="dialog",aria-labelledby="modal-create"
           input.form-group.form-control(
             type="text"
             name="tag"
-            placeholder="nombre")
+            placeholder="nombre"
+            required)
           input#addSubmitTag.btn.btn-info(type="submit",value="Guardar")
 script.
   // add category - POST

@@ -11,22 +11,24 @@ block content
         img.img-fluid.img-center.shadow(src="/img/entrada.jpeg")
     //- _categories
     h3.mt-5.mb-2 Tienda
-      span.btn.btn-info.btn-sm.action-admin.ml-2.mb-2(
-        data-toggle="modal"
-        data-target="#addCategory"
-        title="Nueva Categoría"
-      )
-        i.fa.fa-plus
+      if session.user
+        span.btn.btn-info.btn-sm.action-admin.ml-2.mb-2(
+          data-toggle="modal"
+          data-target="#addCategory"
+          title="Nueva Categoría"
+        )
+          i.fa.fa-plus
     .card-columns
       each category, index in _categories && _categories.length ? _categories : [""]
         div
-          //- btn delete
-          span.badge-admin-item.badge.badge-danger(
-            onclick=`deleteByType("${category.name}", "categories", "${category._id}")`
-          ) borrar
-          //- btn edit
-          span.badge-admin-item.badge.badge-info(style="margin-left: 50px;") 
-            a(href=`${"/categories/"+category._id+"/edit"}`) editar
+          if session.user
+            //- btn delete
+            span.badge-admin-item.badge.badge-danger(
+              onclick=`deleteByType("${category.name}", "categories", "${category._id}")`
+            ) borrar
+            //- btn edit
+            span.badge-admin-item.badge.badge-info(style="margin-left: 50px;") 
+              a(href=`${"/categories/"+category._id+"/edit"}`) editar
           //- card category
           a.card.category(href=`/items?category=${category._id}`)
             img.card-img-top(src=`${category.img || "https://placekitten.com/1000/300"}`)
@@ -34,23 +36,25 @@ block content
               h5.text-center.card-title.mt-4 !{category.name}
     //- _tags
     h3.mt-5.mb-2 Marcas
-      span.btn.btn-info.btn-sm.action-admin.ml-2.mb-2(
-        data-toggle="modal"
-        data-target="#addTag"
-        title="Nueva Marca"
-      )
-        i.fa.fa-plus
+      if session.user
+        span.btn.btn-info.btn-sm.action-admin.ml-2.mb-2(
+          data-toggle="modal"
+          data-target="#addTag"
+          title="Nueva Marca"
+        )
+          i.fa.fa-plus
     .container-fluid
       .row
         each tag, index in _tags && _tags.length ? _tags : [""]
           .col-md-2.col-sm-3.col-6
-            //- btn delete
-            span.badge-admin-item.badge.badge-danger(
-              onclick=`deleteByType("${tag.name}", "tags", "${tag._id}")`
-            ) borrar
-            //- btn edit
-            span.badge-admin-item.badge.badge-info(style="margin-left: 50px;") 
-              a(href=`${"/tags/"+tag._id+"/edit"}`) editar
+            if session.user
+              //- btn delete
+              span.badge-admin-item.badge.badge-danger(
+                onclick=`deleteByType("${tag.name}", "tags", "${tag._id}")`
+              ) borrar
+              //- btn edit
+              span.badge-admin-item.badge.badge-info(style="margin-left: 50px;") 
+                a(href=`${"/tags/"+tag._id+"/edit"}`) editar
             //- card tag
             a.card.tag(href=`/items?category=${tag.category}&tag=${tag._id}`, title=`${tag.name}`)
               img.card-img-top(src=`${tag.img || "https://placekitten.com/1000/300"}`)
@@ -77,8 +81,6 @@ block content
         data-slide="next")
         span.carousel-control-next-icon(aria-hidden="true")
         span.sr-only Next
-
-
 
 //-(src="https://img.freepik.com/foto-gratis/veterinario-que-comprueba-perro-estetoscopio-tabla-clinica-veterinario_23-2147928421.jpg?size=626&ext=jpg")
 //-(src="https://img.freepik.com/foto-gratis/equipo-cirujanos-que-trabajan-supervision-paciente-sala-operaciones-quirurgica_50889-74.jpg?size=626&ext=jpg")

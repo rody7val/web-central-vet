@@ -6,12 +6,13 @@ block content
   - var indexT = _tags.map(tag => {return String(tag._id)}).indexOf(session.query.tag)
   #container-fluid
     h3.mb-4 !{session.query && session.query.category ? _categories[indexC].name.toUpperCase() : "Tienda" }
-      button#new_item.btn.btn-info.btn-sm.d-inline-block.action-admin.ml-2(
-        data-toggle="modal"
-        data-target="#addItem"
-        title="Nuevo Producto"
-      )
-        i.fa.fa-plus
+      if session.user
+        button#new_item.btn.btn-info.btn-sm.d-inline-block.action-admin.ml-2(
+          data-toggle="modal"
+          data-target="#addItem"
+          title="Nuevo Producto"
+        )
+          i.fa.fa-plus
     form.form-inline()
       //-
       .input-group.mb-1

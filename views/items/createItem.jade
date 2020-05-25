@@ -11,7 +11,7 @@ div#addItem.modal.fade(tabindex="-1",role="dialog",aria-labelledby="modal-create
           label Categoria
           select.form-group.form-control.form-input.mr-2(
             name="category"
-          )
+            required)
             option(disabled, selected) Seleccione...
             each category, index in _categories
               option(value=`${category._id}`) !{category.name}
@@ -19,7 +19,7 @@ div#addItem.modal.fade(tabindex="-1",role="dialog",aria-labelledby="modal-create
           label Marca
           select.form-group.form-control.form-input.mr-2(
             name="tag"
-          )
+            required)
             option(disabled, selected) Seleccione...
             each tag, index in _tags
               option(value=`${tag._id}`) !{tag.name}
@@ -31,7 +31,8 @@ div#addItem.modal.fade(tabindex="-1",role="dialog",aria-labelledby="modal-create
               type="file"
               name="file"
               placeholder="Elije o arrastra una imagen..."
-              drop-placeholder="Arrastra una imagen...")
+              drop-placeholder="Arrastra una imagen..."
+              required)
             small.text-muted#uploadValue
           input.form-group.form-control(
             style="display: none;"

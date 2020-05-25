@@ -296,6 +296,10 @@ hr{
     margin-bottom: 1.5rem;
 }
 
+.dropdown-toggle::after {
+    right: 5px;
+}
+
 @media (max-width: 576px) {
     .card_items{
         max-width: 100%;

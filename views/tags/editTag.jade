@@ -28,7 +28,7 @@ block content
       label Categoria
       select.form-group.form-control.form-input.mr-2(
         name="category"
-      )
+        required)
         each category, index in _categories
           if category._id == String(tag.category)
             option(value=`${category._id}`, selected) !{category.name}
@@ -39,7 +39,8 @@ block content
         id="name_tag_edit"
         type="text"
         name="name"
-        placeholder="nombre")
+        placeholder="nombre"
+        required)
       input#addSubmitTag.btn.btn-info(type="submit",value="Guardar")
   //-script
   script.
