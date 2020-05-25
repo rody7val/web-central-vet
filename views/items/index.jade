@@ -68,13 +68,14 @@ block content
       if items
         each item in items && items.length ? items : [] 
           div
-            //- btn delete
-            span.badge-admin-item.badge.badge-danger(
-              onclick=`deleteByType("${item.title}", "items", "${item._id}")`
-            ) borrar
-            //- btn edit
-            span.badge-admin-item.badge.badge-info(style="margin-left: 50px;")
-              a(href=`${"/items/"+item._id+"/edit"}`) editar
+            if session.user
+              //- btn delete
+              span.badge-admin-item.badge.badge-danger(
+                onclick=`deleteByType("${item.title}", "items", "${item._id}")`
+              ) borrar
+              //- btn edit
+              span.badge-admin-item.badge.badge-info(style="margin-left: 50px;")
+                a(href=`${"/items/"+item._id+"/edit"}`) editar
             a.card.card_items(href=`/items/${item._id}`)
               if item.img
                 img.card-img-top(src=`${item.img}`, alt=`${item.title}`)
