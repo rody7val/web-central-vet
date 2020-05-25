@@ -12,14 +12,22 @@ block content
         title="Nuevo Producto"
       )
         i.fa.fa-plus
-    form.form-inline(action="/items")
+    form.form-inline()
+      //-
+      .input-group.mb-1
+        input.form-control.form-input.mr-2(
+          type="search"
+          placeholder="Buscar por nombre..."
+          name="title"
+          oninput="_searchItem(event, this.form)"
+          value=`${session.query && session.query.title ? session.query.title : "" }`)
       //- filter category
-      .input-group
-        .input-group-prepend.mb-1
+      .input-group.mb-1
+        .input-group-prepend
           label.input-group-text.secondary(for="select-category") Categoria
         select#select-category.form-control.form-input.mr-2(
           name="category"
-          onchange="this.form.submit()"
+          onchange="_searchItem(event, this.form)"
         )
           option(value="",selected) Todas
           each category, indexC in _categories
@@ -30,12 +38,12 @@ block content
               option(
                 value=`${category._id}`) !{category.name}
       //- filter tags
-      .input-group
+      .input-group.mb-1
         .input-group-prepend
           label.input-group-text.secondary(for="select-tag") Marca
         select#select-tag.form-control.form-input.mr-2(
           name="tag"
-          onchange="this.form.submit()"
+          onchange="_searchItem(event, this.form)"
         )
           option(value="",selected) Todas
           each tag, indexT in _tags
@@ -46,15 +54,15 @@ block content
               option(
                 value=`${tag._id}`) !{tag.name}
     //- topics
-    small 
-      p 
+    small#topics
+      p
         if indexC >= 0
           span.badge.btn-info.mt-2.mr-2 !{_categories[indexC].name}
         if indexT >= 0
           span.badge.btn-dark.mt-2.mr-2 !{_tags[indexT].name}
         if items && items.length
-        small !{(items.length) + " resultado" + (items.length >1 ? "s" : "")}
-    //-pre !{index}
+        small (!{(items.length) + " resultado" + (items.length >1 ? "s" : "")})
+    //- items
     #items.card-columns.mt-4
       if items
         each item in items && items.length ? items : [] 
@@ -74,3 +82,37 @@ block content
               .card-body
                 h5.card-title $ !{item.price}
                 .card-text !{item.title}
+  script.
+    const _searchItem = (event, form) => {
+      event.preventDefault()
+
+      let item = {
+        title: form.title.value,
+        category: form.category.value,
+        tag: form.tag.value
+      }
+      console.log(item)
+
+      fetch('/api/items/search', {
+        method: 'POST',
+        body: JSON.stringify({ item: item }),
+        headers:{
+          'Content-Type': 'application/json'
+        }
+      })
+      .then(res => {
+        return res.json()
+      })
+      .then(res => {
+        if (res.success) {
+          console.log(res)
+          const params = new URLSearchParams(res.filters)
+          window.history.pushState({}, null, location.pathname + "?" + params)
+          return renderItems(res.items)
+        }
+        alert("res", res)
+      })
+      .catch(err => {
+        alert("err", err)
+      })
+    }

@@ -18,7 +18,6 @@ exports.load = (req, res, next, itemId) => {
 }
 
 exports.getAll = (filter, cb) => {
-console.log(filter)
   Item
     .find(filter)
     .sort('-created')
@@ -73,20 +72,38 @@ exports.delete = (req, res, next) => {
 }
 
 exports.search = (req, res) => {
-  let filter = new RegExp(req.body.filter_title, "gi")
+  let filterItems = {}
+  // category
+  if (req.body.item && req.body.item.category) {
+    filterItems.category = req.body.item.category
+  }
+  // tag
+  if (req.body.item && req.body.item.tag) {
+    filterItems.tag = req.body.item.tag
+  }
+  // title
+  if (req.body.item && req.body.item.title) {
+    filterItems.title = new RegExp(req.body.item.title, "gi")
+  }
+
   Item
-  .find({
-    title: filter
-  })
-  .populate('category')
+  .find(filterItems)
+  .populate("category")
+  .populate("tag")
   .sort('-created')
   .exec((err, items) => {
     if (err) {
       return res.json({success: false, err: err})
     }
+
+    if (filterItems && filterItems.title) {
+      filterItems.title = req.body.item.title 
+    }
+
     res.json({
       success: true,
-      items: items
+      items: items,
+      filters: filterItems
     })
   })
 }

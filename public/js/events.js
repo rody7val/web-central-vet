@@ -52,6 +52,51 @@ const renderCart = () => {
   document.getElementById("cart_total").innerHTML = shoppingCart.totalCart()
   document.getElementById("cart_count").innerHTML = shoppingCart.lengthCart()
 }
+
+      //<span class="badge btn-info mt-2 mr-2">${items.length ? items[0].category.name : ""}</span>
+      //<span class="badge btn-dark mt-2 mr-2">${items.length ? items[0].tag.name : ""}</span>
+// render items
+const renderItems = (items) => {
+
+  let Topics = `
+    <p>
+      <small>${(items.length) + " resultado" + (items.length >1 ? "s" : "")}</small>
+    </p>
+  `
+
+  let Items = items.map((item, index) => {
+    return(`
+      <div>
+        <span
+          class="badge-admin-item badge badge-danger"
+          onclick='deleteByType("${item.title}", "items", "${item._id}")'>
+          borrar
+        </span>
+        <span
+          class="badge-admin-item badge badge-info"
+          style="margin-left: 50px;">
+          <a href="/items/${item._id}/edit">editar</a>
+        </span>
+        <a
+          class="card card_items"
+          href='/items/${item._id}'>
+          <img
+            class="card-img-top"
+            src='${item.img}'
+            alt='${item.title}'/>
+          <div class="card-body">
+            <h5 class="card-title">$ ${item.price}</h5>
+            <div class="card-text">${item.title}</div>
+          </div>
+        </a>
+      </div>
+    `)
+  }).join(" ")
+
+  document.getElementById("items").innerHTML = items.length ? Items : "sin resultados..."
+  document.getElementById("topics").innerHTML = Topics
+}
+
 //renderCart()
 
 /*

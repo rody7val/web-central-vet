@@ -15,12 +15,17 @@ exports.home = (req, res) => {
 exports.items = (req, res, next) => {
   let filterItems = {}
   
+  // category
   if (req.query && req.query.category) {
     filterItems.category = req.query.category
   }
-
+  // tag
   if (req.query && req.query.tag) {
     filterItems.tag = req.query.tag
+  }
+  // title
+  if (req.query && req.query.title) {
+    filterItems.title = new RegExp(req.query.title, "gi")
   }
 
   Items.getAll(filterItems, (err, items) => {
