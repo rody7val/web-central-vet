@@ -2,51 +2,75 @@
 extends ../layout.jade
 
 block content
-  - var index = _categories.map(category => {return String(category._id)}).indexOf(session.query.category)
+  - var indexC = _categories.map(category => {return String(category._id)}).indexOf(session.query.category)
+  - var indexT = _tags.map(tag => {return String(tag._id)}).indexOf(session.query.tag)
   #container-fluid
-    h3.mb-4 !{session.query && session.query.category ? _categories[index].name.toUpperCase() : "Comprar" }
+    h3.mb-4 !{session.query && session.query.category ? _categories[indexC].name.toUpperCase() : "Tienda" }
       button#new_item.btn.btn-info.btn-sm.d-inline-block.action-admin.ml-2(
         data-toggle="modal"
         data-target="#addItem"
         title="Nuevo Producto"
       )
         i.fa.fa-plus
-    //- filter category
     form.form-inline(action="/items")
-      select.form-control.form-input.mr-2(
-        name="category"
-        onchange="this.form.submit()"
-      )
-        option(value="",disabled,selected) Categoría de productos...
-        each category, index in _categories
-          if String(session.query.category) === String(_categories[index]._id)
-            option(selected
-              value=`${category._id}`) !{category.name}
-          else 
-            option(
-              value=`${category._id}`) !{category.name}
-    //-tags
+      //- filter category
+      .input-group
+        .input-group-prepend.mb-1
+          label.input-group-text.secondary(for="select-category") Categoria
+        select#select-category.form-control.form-input.mr-2(
+          name="category"
+          onchange="this.form.submit()"
+        )
+          option(value="",selected) Todas
+          each category, indexC in _categories
+            if String(session.query.category) === String(_categories[indexC]._id)
+              option(selected
+                value=`${category._id}`) !{category.name}
+            else 
+              option(
+                value=`${category._id}`) !{category.name}
+      //- filter tags
+      .input-group
+        .input-group-prepend
+          label.input-group-text.secondary(for="select-tag") Marca
+        select#select-tag.form-control.form-input.mr-2(
+          name="tag"
+          onchange="this.form.submit()"
+        )
+          option(value="",selected) Todas
+          each tag, indexT in _tags
+            if String(session.query.tag) === String(_tags[indexT]._id)
+              option(selected
+                value=`${tag._id}`) !{tag.name}
+            else 
+              option(
+                value=`${tag._id}`) !{tag.name}
+    //- topics
     small 
       p 
-        if index >= 0
-          span.badge.btn-info.mt-2.mr-2 !{_categories[index].name}
-        small !{(items.length) + " resultado" + (items.length >1 ? "s" : "")} 
+        if indexC >= 0
+          span.badge.btn-info.mt-2.mr-2 !{_categories[indexC].name}
+        if indexT >= 0
+          span.badge.btn-dark.mt-2.mr-2 !{_tags[indexT].name}
+        if items && items.length
+        small !{(items.length) + " resultado" + (items.length >1 ? "s" : "")}
     //-pre !{index}
     #items.card-columns.mt-4
-      each item in items && items.length ? items : [] 
-        div
-          //- btn delete
-          span.badge-admin-item.badge.badge-danger(
-            onclick=`deleteByType("${item.title}", "items", "${item._id}")`
-          ) borrar
-          //- btn edit
-          span.badge-admin-item.badge.badge-info(style="margin-left: 50px;")
-            a(href=`${"/items/"+item._id+"/edit"}`) editar
-          a.card.card_items(href=`/items/${item._id}`)
-            if item.img
-              img.card-img-top(src=`${item.img}`, alt=`${item.title}`)
-            else
-              img.card-img-top(src="https://placekitten.com/300/200", alt=`${item.title}`)
-            .card-body
-              h5.card-title $ !{item.price}
-              .card-text !{item.title}
+      if items
+        each item in items && items.length ? items : [] 
+          div
+            //- btn delete
+            span.badge-admin-item.badge.badge-danger(
+              onclick=`deleteByType("${item.title}", "items", "${item._id}")`
+            ) borrar
+            //- btn edit
+            span.badge-admin-item.badge.badge-info(style="margin-left: 50px;")
+              a(href=`${"/items/"+item._id+"/edit"}`) editar
+            a.card.card_items(href=`/items/${item._id}`)
+              if item.img
+                img.card-img-top(src=`${item.img}`, alt=`${item.title}`)
+              else
+                img.card-img-top(src="https://placekitten.com/300/200", alt=`${item.title}`)
+              .card-body
+                h5.card-title $ !{item.price}
+                .card-text !{item.title}

@@ -52,7 +52,7 @@ block content
             span.badge-admin-item.badge.badge-info(style="margin-left: 50px;") 
               a(href=`${"/tags/"+tag._id+"/edit"}`) editar
             //- card tag
-            a.card.tag(href=`/items?tag=${tag._id}`, title=`${tag.name}`)
+            a.card.tag(href=`/items?category=${tag.category}&tag=${tag._id}`, title=`${tag.name}`)
               img.card-img-top(src=`${tag.img || "https://placekitten.com/1000/300"}`)
     //- services
     h3.mt-5.mb-2 Servicios

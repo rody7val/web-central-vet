@@ -286,12 +286,17 @@ hr{
     z-index: 2;
 }
 
-@media (min-width: 576px){
-.card_items {
-    max-width: 255px;
+.secondary{
+    color: #fff;
+    background-color: #5a6268;
+    border-color: #545b62;
 }
 
-@media (max-width: 768px) {
+.card-columns .card {
+    margin-bottom: 1.5rem;
+}
+
+@media (max-width: 576px) {
     .card_items{
         max-width: 100%;
     }
@@ -308,4 +313,9 @@ hr{
     .icon-svg-home {
         font-size: 70px
     }
+}
+
+@media (min-width: 576px){
+.card_items {
+    max-width: 255px;
 }

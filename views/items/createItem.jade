@@ -6,7 +6,8 @@ div#addItem.modal.fade(tabindex="-1",role="dialog",aria-labelledby="modal-create
         button.close(type="button",data-dismiss="modal",aria-label="Close")
           span(aria-hidden="true") &times;
       div.modal-body
-        form(onsubmit="addItem(event)")
+        form(onsubmit="_addItem(event)")
+          //- category
           label Categoria
           select.form-group.form-control.form-input.mr-2(
             name="category"
@@ -14,6 +15,14 @@ div#addItem.modal.fade(tabindex="-1",role="dialog",aria-labelledby="modal-create
             option(disabled, selected) Seleccione...
             each category, index in _categories
               option(value=`${category._id}`) !{category.name}
+          //- tag
+          label Marca
+          select.form-group.form-control.form-input.mr-2(
+            name="tag"
+          )
+            option(disabled, selected) Seleccione...
+            each tag, index in _tags
+              option(value=`${tag._id}`) !{tag.name}
           label Imagen
           div.form-group
             img#preview.img-center
@@ -54,4 +63,45 @@ div#addItem.modal.fade(tabindex="-1",role="dialog",aria-labelledby="modal-create
             placeholder="Cantidad en stock"
             required)
           input#addSubmit.btn.btn-primary(type="submit",value="Guardar")
+script.
+  // add item - POST
+  const _addItem = (event) => {
+    event.preventDefault()
+
+    // handle btn submit
+    document.getElementById("addSubmit").value = "cargando..."
+    document.getElementById("addSubmit").setAttribute("disabled", true)
+
+    let item = {
+      category: event.target.category.value,
+      img: event.target.img.value,
+      title: event.target.title.value,
+      desc: event.target.desc.value,
+      price: Number(event.target.price.value),
+      qty: Number(event.target.qty.value),
+      tag: event.target.tag.value
+    }
+
+    fetch('/api/items', {
+      method: 'POST',
+      body: JSON.stringify({ item: item }),
+      headers:{
+        'Content-Type': 'application/json'
+      }
+    })
+    .then(res => {
+      return res.json()
+    })
+    .then(res => {
+      if (res.success) {
+        alert("producto creado!")
+        return window.location.reload()
+      }
+      alert("res", res)
+    })
+    .catch(err => {
+      alert("err", err)
+    })
+  }
+
 script(src="/js/items/all.js")

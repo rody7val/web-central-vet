@@ -7,6 +7,7 @@ exports.load = (req, res, next, itemId) => {
   Item
   .findOne({ _id: itemId })
   .populate('category')
+  .populate('tag')
   .exec((err, item) => {
     if (item){
       req.item = item
@@ -17,6 +18,7 @@ exports.load = (req, res, next, itemId) => {
 }
 
 exports.getAll = (filter, cb) => {
+console.log(filter)
   Item
     .find(filter)
     .sort('-created')
@@ -97,11 +99,13 @@ exports.edit = (req, res, next) => {
     if (err) {
       return res.json({success: false, err: err})
     }
+    item.category = req.body.category
     item.img = req.body.img
     item.title = req.body.title
     item.desc = req.body.desc
     item.price = Number(req.body.price)
     item.qty = Number(req.body.qty)
+    item.tag = req.body.tag
     item.save()
     res.json({success: true})
   })

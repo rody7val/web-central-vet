@@ -8,6 +8,7 @@ html(lang="es")
     script.
       window.$user = !{ JSON.stringify(session && session.user ? session.user : null, undefined, 2).replace(/<\//g, "<\\/") }
       window.$path = !{ JSON.stringify(session && session.path ? session.path : null, undefined, 2).replace(/<\//g, "<\\/") }
+      window.$query = !{ JSON.stringify(session && session.query ? session.query : null, undefined, 2).replace(/<\//g, "<\\/") }
   body
     .wrapper
       nav#sidebar

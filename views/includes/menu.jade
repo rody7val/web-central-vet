@@ -7,9 +7,8 @@ nav.navbar.fixed-top.navbar-expand-lg.navbar-light.bg-light
       button.btn.btn-info.btn-sm.ml-2(title="Carrito",data-toggle="modal",data-target="#cart")
         i.fa.fa-shopping-cart.mr-1
         span#cart_count 0
+//- modals
 include ../items/createItem.jade
 include ../categories/createCategory.jade
 include ../tags/createTag.jade
 include ../cart/index.jade
-script(src="/js/cart/cart.js")
-script(src="/js/cart/events.js")

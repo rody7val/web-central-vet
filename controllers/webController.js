@@ -14,13 +14,17 @@ exports.home = (req, res) => {
 // items
 exports.items = (req, res, next) => {
   let filterItems = {}
+  
+  if (req.query && req.query.category) {
+    filterItems.category = req.query.category
+  }
 
-  Categories.getAll((errC, categories) => {
-    filterItems.category = req.query && req.query.category ? req.query.category : null
+  if (req.query && req.query.tag) {
+    filterItems.tag = req.query.tag
+  }
 
-    Items.getAll(filterItems, (errI, items) => {
-      res.render('items', { items, categories })
-    })
+  Items.getAll(filterItems, (err, items) => {
+    res.render('items', { items })
   })
 }
 

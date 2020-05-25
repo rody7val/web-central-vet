@@ -16,7 +16,6 @@ exports.setItemRelation = (item, cb) => {
 exports.getAll = (cb) => {
   Tag
     .find()
-    .populate("category")
     .sort('created')
     .exec((err, tag) => {
       if (err) {
@@ -82,6 +81,7 @@ exports.edit = (req, res, next) => {
     }
     tag.name = req.body.name
     tag.img = req.body.img
+    tag.category = req.body.category
     tag.save()
     res.json({success: true})
   })

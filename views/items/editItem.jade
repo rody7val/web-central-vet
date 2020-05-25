@@ -9,6 +9,22 @@ block content
       span
         code !{item.title}
     form(onsubmit='editItem(event)')
+      //- category
+      label Categoria
+      select.form-group.form-control.form-input.mr-2(
+        name="category"
+      )
+        option(disabled, selected) Seleccione...
+        each category, index in _categories
+          option(value=`${category._id}`) !{category.name}
+      //- tag
+      label Marca
+      select.form-group.form-control.form-input.mr-2(
+        name="tag"
+      )
+        option(disabled, selected) Seleccione...
+        each tag, index in _tags
+          option(value=`${tag._id}`) !{tag.name}
       label Imagen
       div.form-group(style="background-color: #ccc")
         img#preview_item_edit.img-center
@@ -67,11 +83,13 @@ block content
       document.getElementById("addSubmit_edit").setAttribute("disabled", true)
 
       let item = {
+        category: event.target.category.value,
         img: event.target.img.value,
         title: event.target.title.value,
         desc: event.target.desc.value,
         price: Number(event.target.price.value),
-        qty: Number(event.target.qty.value)
+        qty: Number(event.target.qty.value),
+        tag: event.target.tag.value
       }
 
       fetch(`/api/items/!{item._id}/edit`, {

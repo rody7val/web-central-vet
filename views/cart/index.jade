@@ -17,3 +17,57 @@ div#cart.modal.fade(aria-hidden="true")
         button#cart_clear.btn.btn-danger.btn-sm(onclick=`deleteCart()`) Vaciar
         button.btn.btn-secondary.btn-sm(data-dismiss="modal") Cerrar
         input#checkoutCartBtn.btn.btn-vete.btn-sm(type="submit",value="Comprar ahora",onclick="checkoutCart(event)")
+script.
+  // delete cart
+  const deleteCart = () => {
+    if (confirm("Borrar todos los productos del carro?")) {
+      shoppingCart.clearCart()
+      renderCart()
+      document.getElementById("cart_items").innerHTML = "Vacío..."
+    }
+  }
+
+  // checkout cart
+  const checkoutCart = (event) => {
+    event.preventDefault()
+    event.preventDefault()
+    // disabled button submit
+    document.getElementById("checkoutCartBtn").setAttribute("disabled", true)
+    document.getElementById("checkoutCartBtn").value = "cargando..."
+
+    let preference = {}
+    preference.items = shoppingCart.listCart().map((item, index) => {
+      return {
+        title: item.name,
+        unit_price: Number(item.price),
+        currency_id: "ARS",
+        quantity: item.count
+      }
+    })
+
+    fetch('/api/checkout', {
+      method: 'POST',
+      body: JSON.stringify(preference),
+      headers:{
+        'Content-Type': 'application/json'
+      }
+    })
+    .then(res => {
+      return res.json()
+    })
+    .then(res => {
+      if (res.success) {
+        // delete cart
+        shoppingCart.clearCart()
+        // redirect to mercado pago
+        window.location.replace(res.init_point)
+      }else{
+        alert("El carro esta vacío...")
+        document.getElementById("checkoutCartBtn").removeAttribute("disabled")
+        document.getElementById("checkoutCartBtn").value = "Comprar ahora"
+      }
+    })
+    .catch(err => {
+      alert("err", err)
+    })
+  }

@@ -10,13 +10,19 @@ block content
       .row
         .col-md-6
           div.card-body
+            //- topics
+            small 
+              p
+                span.badge.btn-info.mt-2.mr-2 !{item.category.name}
+                span.badge.btn-dark.mt-2.mr-2 !{item.tag.name}
+            //- item
             h5.card-title !{item.title}
             h1.lead-vete $ !{item.price}
             form(onsubmit=`checkout(event, window.$item)`)
               .form-group
                 .input-group
                   .input-group-prepend
-                    sapn.input-group-text Cantidad: 
+                    sapn.input-group-text.secondary Cantidad: 
                   input.form-control(onchange=`qtyChange(event)`
                     type="number"
                     name="qty"
@@ -37,8 +43,64 @@ block content
                 type="submit") Agregar al carrito
             img.img-center.mt-3(src="/img/MP-payButton-logos.png")
             hr
-            p.lead Descripción:
+            p.lead(style="color: #333") Descripción:
             p !{item.desc}
         .col-md-6
           img.img-center.img-view.card-img-bottom(src=`${item.img}`)
-  script(src="/js/items/one.js")
+  script.
+    // copy qty
+    const qtyChange = (event) => {
+      event.preventDefault()
+      document.getElementById('cart_qty').value = event.target.value
+    }
+
+    //add item
+    const addToCart = (event, item) => {
+      event.preventDefault()
+      shoppingCart.addItemToCart(item.title, Number(item.price), Number(event.target.cart_qty.value), item.qty)
+      renderCart()
+    }
+
+    // checkout item
+    const checkout = (event, item) => {
+      event.preventDefault()
+      // disabled button submit
+      document.getElementById("checkoutBtn").setAttribute("disabled", true)
+      document.getElementById("checkoutBtn").value = "cargando..."
+
+      let preference = {
+        items: [
+          {
+            id: item._id,
+            title: item.title,
+            unit_price: Number(item.price),
+            currency_id: 'ARS',
+            quantity: Number(event.target.qty.value),
+          }
+        ]
+      }
+
+      fetch('/api/checkout', {
+        method: 'POST',
+        body: JSON.stringify(preference),
+        headers:{
+          'Content-Type': 'application/json'
+        }
+      })
+      .then(res => {
+        return res.json()
+      })
+      .then(res => {
+        if (res.success) {
+          // delete cart
+          shoppingCart.clearCart()
+          renderCart()
+          document.getElementById("cart_items").innerHTML = "Vacío..."
+          // redirect to mercado pago
+          window.location.replace(res.init_point)
+        }
+      })
+      .catch(err => {
+        alert("err", err)
+      })
+    }
