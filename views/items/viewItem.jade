@@ -29,7 +29,7 @@ block content
                     min="1"
                     value="1"
                     max=`${item.qty}`)
-                small.text-muted.text-right(style="display: inherit") (!{item.qty} disponibles)
+                small.text-muted.text-right(style="display: inherit") (!{(item.qty) + " disponible" + (item.qty > 1 ? "s" : "")} )
               input#checkoutBtn.btn.btn-vete.btn-sm.btn-block.mr-2(
                 type="submit"
                 value="Comprar ahora")

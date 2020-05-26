@@ -1,13 +1,11 @@
 extends ../layout.jade
-script.
-  window.$tag = !{ JSON.stringify(tag).replace(/<\//g, "<\\/") }
 
 block content
+  script.
+    window.$tag = !{ JSON.stringify(tag).replace(/<\//g, "<\\/") }
   - const parseObj = (data) => { return JSON.stringify(data, undefined, 2).replace(/<\//g, "<\\/") }
   #container-fluid.col-md-6
-    h3#modal-create.modal-title Editar Marca 
-      span
-        code !{tag.name}
+    h3#modal-create.modal-title Editar !{tag.name}
     form(onsubmit='editTag(event)')
       label Imagen
       div.form-group(style="background-color: #ccc")

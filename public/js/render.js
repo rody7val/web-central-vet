@@ -53,13 +53,17 @@ const renderCart = () => {
   document.getElementById("cart_count").innerHTML = shoppingCart.lengthCart()
 }
 
-      //<span class="badge btn-info mt-2 mr-2">${items.length ? items[0].category.name : ""}</span>
-      //<span class="badge btn-dark mt-2 mr-2">${items.length ? items[0].tag.name : ""}</span>
 // render items
-const renderItems = (items) => {
+const renderItems = (items, indexC, indexT) => {
+
+  let categoryName = `<span class="badge btn-info mt-2 mr-2">${indexC >= 0 ? window.$categories[indexC].name : ""}</span>`
+  let tagName = `<span class="badge btn-dark mt-2 mr-2">${indexT >= 0 ? window.$tags[indexT].name : ""}</span>`
+  console.log(categoryName)
+  console.log(tagName)
 
   let Topics = `
     <p>
+      ${categoryName + tagName}
       <small>${(items.length) + " resultado" + (items.length >1 ? "s" : "")}</small>
     </p>
   `

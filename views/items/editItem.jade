@@ -1,33 +1,36 @@
 extends ../layout.jade
-script.
-  window.$item = !{ JSON.stringify(item).replace(/<\//g, "<\\/") }
 
 block content
-  - const parseObj = (data) => { return JSON.stringify(data, undefined, 2).replace(/<\//g, "<\\/") }
   #container-fluid.col-md-6
-    h3#modal-create.modal-title Editar Producto 
-      span
-        code !{item.title}
+    h3#modal-create.modal-title Editar !{item.title}
     form(onsubmit='editItem(event)')
       //- category
       label Categoria
       select.form-group.form-control.form-input.mr-2(
+        id="category_edit"
         name="category"
         required)
-        option(disabled, selected) Seleccione...
         each category, index in _categories
-          option(value=`${category._id}`) !{category.name}
+          if category._id == String(item.category._id)
+            option(value=`${category._id}`, selected) !{category.name}
+          else
+            option(value=`${category._id}`) !{category.name}
       //- tag
       label Marca
       select.form-group.form-control.form-input.mr-2(
+        id="tag_edit"
         name="tag"
         required)
-        option(disabled, selected) Seleccione...
         each tag, index in _tags
-          option(value=`${tag._id}`) !{tag.name}
+          if tag._id == String(item.tag._id)
+            option(value=`${tag._id}`, selected) !{tag.name}
+          else
+            option(value=`${tag._id}`) !{tag.name}
       label Imagen
       div.form-group(style="background-color: #ccc")
-        img#preview_item_edit.img-center
+        //- img preview
+        img#preview_item_edit.img-center(src=`${item.img}`)
+        //- img file
         input.form-co_editntrol(
           onchange="onChangeImage(event, 'uploadValue_item_edit', 'urlImg_item_edit', 'preview_item_edit')"
           type="file"
@@ -35,33 +38,43 @@ block content
           placeholder="Elije o arrastra una imagen..."
           drop-placeholder="Arrastra una imagen...")
         small.text-muted#uploadValue_item_edit
+      //- img text
       input.form-group.form-control(
+        value=`${item.img}`
         id="urlImg_item_edit"
         type="text"
         name="img"
         placeholder="url img"
         disabled)
+      //- title
       label Detalles
       input.form-group.form-control(
+        value=`${item.title}`
         id="title_item_edit"
         type="text"
         name="title"
         placeholder="Nombre del producto"
         required)
+      //- desc
       input.form-group.form-control(
+        value=`${item.desc}`
         id="desc_item_edit"
         type="text"
         name="desc"
         placeholder="Descripcion"
         required)
+      //- price
       input.form-group.form-control(
+        value=`${item.price}`
         id="price_item_edit"
         type="number"
         name="price"
         placeholder="Precio de venta"
         step="0.05"
         required)
+      //- qty
       input.form-group.form-control(
+        value=`${item.qty}`
         id="qty_item_edit"
         type="number"
         name="qty"
@@ -69,13 +82,6 @@ block content
         required)
       input#addSubmit_edit.btn.btn-primary(type="submit",value="Guardar")
   script.
-    document.getElementById("preview_item_edit").setAttribute("src", !{parseObj(item.img || "")} )
-    document.getElementById("urlImg_item_edit").value = !{parseObj(item.img || "")} 
-    document.getElementById("title_item_edit").value = !{parseObj(item.title)}
-    document.getElementById("desc_item_edit").value = !{parseObj(item.desc)}
-    document.getElementById("price_item_edit").value = !{parseObj(item.price)}
-    document.getElementById("qty_item_edit").value = !{parseObj(item.qty)}
-
     const editItem = (event) => {
       event.preventDefault()
       // handle btn submit

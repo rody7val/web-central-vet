@@ -2,8 +2,8 @@
 extends ../layout.jade
 
 block content
-  - var indexC = _categories.map(category => {return String(category._id)}).indexOf(session.query.category)
-  - var indexT = _tags.map(tag => {return String(tag._id)}).indexOf(session.query.tag)
+  - var indexC = _categories.map(category => {return String(category._id)}).indexOf(session.query && session.query.category ? session.query.category : null)
+  - var indexT = _tags.map(tag => {return String(tag._id)}).indexOf(session.query && session.query.tag ? session.query.tag : null)
   #container-fluid
     h3.mb-4 !{session.query && session.query.category ? _categories[indexC].name.toUpperCase() : "Tienda" }
       if session.user
@@ -93,7 +93,6 @@ block content
         category: form.category.value,
         tag: form.tag.value
       }
-      console.log(item)
 
       fetch('/api/items/search', {
         method: 'POST',
@@ -110,7 +109,18 @@ block content
           console.log(res)
           const params = new URLSearchParams(res.filters)
           window.history.pushState({}, null, location.pathname + "?" + params)
-          return renderItems(res.items)
+
+          let indexC = window
+            .$categories
+            .map(category => { return String(category._id) })
+            .indexOf(res.filters.category)
+
+          let indexT = window
+            .$tags
+            .map(tag => { return String(tag._id) })
+            .indexOf(res.filters.tag)
+
+          return renderItems(res.items, indexC, indexT)
         }
         alert("res", res)
       })

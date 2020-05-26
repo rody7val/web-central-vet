@@ -300,6 +300,7 @@ hr{
     right: 5px;
 }
 
+
 @media (max-width: 576px) {
     .card_items{
         max-width: 100%;
@@ -316,6 +317,9 @@ hr{
     }
     .icon-svg-home {
         font-size: 70px
+    }
+    input[type="file"] {
+      max-width: 100%;
     }
 }
 

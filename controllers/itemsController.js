@@ -1,5 +1,6 @@
 const Item = require('../models/item_model')
 const categories = require('../controllers/categoriesController')
+const tags = require('../controllers/tagsController')
 const mp = require('mercadopago')
 
 // Autoload - factoriza el código si la ruta incluye :itemId
@@ -44,18 +45,24 @@ exports.all = (req, res) => {
 
 exports.add = (req, res) => {
   let item = new Item(req.body.item)
-
+  // save item
   item.save(err => {
     if (err) {
       return res.json({success: false, err: err})
     }
-
+    // save category relation 
     categories.setItemRelation(item, (err, success) => {
       if (err) {
         return res.json({success: false, err: err})
       }
+      // save tag relation 
+      tags.setItemRelation(item, (err, success) => {
+        if (err) {
+          return res.json({success: false, err: err})
+        }
 
-      res.json({success: success})
+        res.json({success: success})
+      })
     })
   })
 }

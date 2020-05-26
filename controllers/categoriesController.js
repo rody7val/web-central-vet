@@ -13,6 +13,19 @@ exports.setItemRelation = (item, cb) => {
   })
 }
 
+exports.setTagRelation = (tag, cb) => {
+  Category.
+  findOne({_id: tag.category}).
+  exec((err, category) => {
+    if (err) {
+      return cb(new Error(err))
+    }
+    category.tags.push({_id: tag.id })
+    category.save()
+    cb(null, true)
+  })
+}
+
 exports.getAll = (cb) => {
   Category
     .find()

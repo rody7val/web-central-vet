@@ -51,12 +51,19 @@ exports.all = (req, res) => {
 
 exports.add = (req, res) => {
   let tag = new Tag(req.body.tag)
-console.log(req.body.tag)
+  // save tag
   tag.save(err => {
     if (err) {
       return res.json({success: false, err: err})
     }
-    res.json({success: true})
+    // save category relation
+    categories.setTagRelation(tag, (err, success) => {
+      if (err) {
+        return res.json({success: false, err: err})
+      }
+
+      res.json({success: success})
+    })
   })
 }
 
