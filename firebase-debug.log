@@ -1,0 +1,54 @@
+[debug] [2020-05-27T03:50:56.926Z] ----------------------------------------------------------------------
+[debug] [2020-05-27T03:50:56.932Z] Command:       C:\Program Files\nodejs\node.exe C:\Users\GUILLERMINA\AppData\Roaming\npm\node_modules\firebase-tools\lib\bin\firebase.js init functions
+[debug] [2020-05-27T03:50:56.933Z] CLI Version:   8.0.3
+[debug] [2020-05-27T03:50:56.933Z] Platform:      win32
+[debug] [2020-05-27T03:50:56.933Z] Node Version:  v12.14.0
+[debug] [2020-05-27T03:50:56.936Z] Time:          Wed May 27 2020 00:50:56 GMT-0300 (GMT-03:00)
+[debug] [2020-05-27T03:50:56.936Z] ----------------------------------------------------------------------
+[debug] [2020-05-27T03:50:56.937Z] 
+[debug] [2020-05-27T03:50:56.956Z] > command requires scopes: ["email","openid","https://www.googleapis.com/auth/cloudplatformprojects.readonly","https://www.googleapis.com/auth/firebase","https://www.googleapis.com/auth/cloud-platform"]
+[debug] [2020-05-27T03:50:56.958Z] > authorizing via signed-in user
+[info] 
+     ######## #### ########  ######## ########     ###     ######  ########
+     ##        ##  ##     ## ##       ##     ##  ##   ##  ##       ##
+     ######    ##  ########  ######   ########  #########  ######  ######
+     ##        ##  ##    ##  ##       ##     ## ##     ##       ## ##
+     ##       #### ##     ## ######## ########  ##     ##  ######  ########
+
+You're about to initialize a Firebase project in this directory:
+
+  C:\Users\GUILLERMINA\apps\web-central-vet
+
+Before we get started, keep in mind:
+
+  * You are initializing in an existing Firebase project directory
+
+[info] 
+=== Project Setup
+[info] 
+[info] First, let's associate this project directory with a Firebase project.
+[info] You can create multiple project aliases by running firebase use --add, 
+[info] but for now we'll just set up a default project.
+[info] 
+[info] i  .firebaserc already has a default project, using central-vet-pigue.
+[debug] [2020-05-27T03:51:01.510Z] >>> HTTP REQUEST GET https://firebase.googleapis.com/v1beta1/projects/central-vet-pigue  
+ 
+[debug] [2020-05-27T03:51:03.207Z] <<< HTTP RESPONSE 200 {"content-type":"application/json; charset=UTF-8","vary":"X-Origin, Referer, Origin,Accept-Encoding","date":"Wed, 27 May 2020 03:51:07 GMT","server":"ESF","cache-control":"private","x-xss-protection":"0","x-frame-options":"SAMEORIGIN","x-content-type-options":"nosniff","alt-svc":"h3-27=\":443\"; ma=2592000,h3-25=\":443\"; ma=2592000,h3-T050=\":443\"; ma=2592000,h3-Q050=\":443\"; ma=2592000,h3-Q049=\":443\"; ma=2592000,h3-Q048=\":443\"; ma=2592000,h3-Q046=\":443\"; ma=2592000,h3-Q043=\":443\"; ma=2592000,quic=\":443\"; ma=2592000; v=\"46,43\"","accept-ranges":"none","transfer-encoding":"chunked"}
+[info] 
+=== Functions Setup
+[info] 
+[info] A functions directory will be created in your project with a Node.js
+[info] package pre-configured. Functions can be deployed with firebase deploy.
+[info] 
+[debug] [2020-05-27T03:51:03.230Z] > command requires scopes: ["email","openid","https://www.googleapis.com/auth/cloudplatformprojects.readonly","https://www.googleapis.com/auth/firebase","https://www.googleapis.com/auth/cloud-platform"]
+[debug] [2020-05-27T03:51:03.231Z] > authorizing via signed-in user
+[debug] [2020-05-27T03:51:03.232Z] [iam] checking project central-vet-pigue for permissions ["firebase.projects.get"]
+[debug] [2020-05-27T03:51:03.234Z] >>> HTTP REQUEST POST https://cloudresourcemanager.googleapis.com/v1/projects/central-vet-pigue:testIamPermissions  
+ {"permissions":["firebase.projects.get"]}
+[debug] [2020-05-27T03:51:04.351Z] <<< HTTP RESPONSE 200 {"content-type":"application/json; charset=UTF-8","vary":"X-Origin, Referer, Origin,Accept-Encoding","date":"Wed, 27 May 2020 03:51:08 GMT","server":"ESF","cache-control":"private","x-xss-protection":"0","x-frame-options":"SAMEORIGIN","x-content-type-options":"nosniff","server-timing":"gfet4t7; dur=923","alt-svc":"h3-27=\":443\"; ma=2592000,h3-25=\":443\"; ma=2592000,h3-T050=\":443\"; ma=2592000,h3-Q050=\":443\"; ma=2592000,h3-Q049=\":443\"; ma=2592000,h3-Q048=\":443\"; ma=2592000,h3-Q046=\":443\"; ma=2592000,h3-Q043=\":443\"; ma=2592000,quic=\":443\"; ma=2592000; v=\"46,43\"","accept-ranges":"none","transfer-encoding":"chunked"}
+[debug] [2020-05-27T03:51:04.356Z] >>> HTTP REQUEST POST https://serviceusage.googleapis.com/v1/projects/central-vet-pigue/services/cloudfunctions.googleapis.com:enable  
+ 
+[debug] [2020-05-27T03:51:04.359Z] >>> HTTP REQUEST POST https://serviceusage.googleapis.com/v1/projects/central-vet-pigue/services/runtimeconfig.googleapis.com:enable  
+ 
+[debug] [2020-05-27T03:51:05.725Z] <<< HTTP RESPONSE 200 {"content-type":"application/json; charset=UTF-8","vary":"X-Origin, Referer, Origin,Accept-Encoding","date":"Wed, 27 May 2020 03:51:10 GMT","server":"ESF","cache-control":"private","x-xss-protection":"0","x-frame-options":"SAMEORIGIN","x-content-type-options":"nosniff","alt-svc":"h3-27=\":443\"; ma=2592000,h3-25=\":443\"; ma=2592000,h3-T050=\":443\"; ma=2592000,h3-Q050=\":443\"; ma=2592000,h3-Q049=\":443\"; ma=2592000,h3-Q048=\":443\"; ma=2592000,h3-Q046=\":443\"; ma=2592000,h3-Q043=\":443\"; ma=2592000,quic=\":443\"; ma=2592000; v=\"46,43\"","accept-ranges":"none","transfer-encoding":"chunked"}
+[debug] [2020-05-27T03:51:05.781Z] <<< HTTP RESPONSE 200 {"content-type":"application/json; charset=UTF-8","vary":"X-Origin, Referer, Origin,Accept-Encoding","date":"Wed, 27 May 2020 03:51:10 GMT","server":"ESF","cache-control":"private","x-xss-protection":"0","x-frame-options":"SAMEORIGIN","x-content-type-options":"nosniff","alt-svc":"h3-27=\":443\"; ma=2592000,h3-25=\":443\"; ma=2592000,h3-T050=\":443\"; ma=2592000,h3-Q050=\":443\"; ma=2592000,h3-Q049=\":443\"; ma=2592000,h3-Q048=\":443\"; ma=2592000,h3-Q046=\":443\"; ma=2592000,h3-Q043=\":443\"; ma=2592000,quic=\":443\"; ma=2592000; v=\"46,43\"","accept-ranges":"none","transfer-encoding":"chunked"}

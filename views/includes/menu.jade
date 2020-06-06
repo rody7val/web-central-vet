@@ -1,9 +1,19 @@
 nav.navbar.fixed-top.navbar-expand-lg.navbar-light.bg-light
   .container-fluid
+
+    a.navbar-brand(href="/")
+      img(
+        height="40"
+        width="40"
+        alt="logo"
+        style="border-radius: 50%"
+        src="http://localhost:8080/static/img/logo-central-vet.a27a323.jpg")
+      code( class="ml-2", style="color:#e83e8c!important") Administración
     //- collapse btn
-    button#sidebarCollapse.btn.btn-vete.btn-sm
+    //- button#sidebarCollapse.btn.btn-vete.btn-sm
       i.fa.fa-align-left.mr-1
-      span Menu
+      span 
+
     div
       //- cart menu
       button.btn.btn-info.btn-sm.ml-2(title="Carrito",data-toggle="modal",data-target="#cart")

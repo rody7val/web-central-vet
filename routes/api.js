@@ -30,6 +30,7 @@ module.exports = express => {
   router.get('/items', items.all)
   router.post('/items', items.add)
   router.post('/items/search', items.search)
+  router.get('/items/:itemId', items.one);
   router.post('/items/:itemId/delete', items.delete);
   router.post('/items/:itemId/edit', items.edit);
 

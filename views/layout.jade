@@ -25,12 +25,12 @@ html(lang="es")
       window.$tags = !{ JSON.stringify(_tags || [], undefined, 2).replace(/<\//g, "<\\/") }
   body
     .wrapper
-      nav#sidebar
+      //- nav#sidebar
         include ./includes/sidebar.jade
+        .overlay
+        include ./includes/alert.jade
       #content
         include ./includes/menu.jade
-        include ./includes/alert.jade
         block content
-      .overlay
     block scripts
-    include ./includes/footer.jade
+    //- include ./includes/footer.jade

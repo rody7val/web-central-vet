@@ -18,6 +18,10 @@ exports.load = (req, res, next, itemId) => {
   })
 }
 
+exports.one = (req, res) => {
+  res.json({success: true, item: req.item})
+}
+
 exports.getAll = (filter, cb) => {
   Item
     .find(filter)

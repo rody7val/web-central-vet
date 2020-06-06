@@ -10,7 +10,6 @@ exports.home = (req, res) => {
   res.render('index')
 }
 
-
 // items
 exports.items = (req, res, next) => {
   let filterItems = {}
